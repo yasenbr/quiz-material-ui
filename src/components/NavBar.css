@@ -1,0 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Engagement&display=swap");
+
+.tq-logo {
+  position: relative;
+  font-family: "Engagement", cursive;
+  font-weight: normal;
+  font-size: 50px;
+  line-height: 75px;
+  margin: 0 auto;
+  text-align: center;
+  color:#fff;
+  text-decoration: none;
+  padding-left: "1rem";
+}
+.tq-logo:after {
+      content: "i";
+    font-size: 61px;
+    color: #e77777;
+    position: absolute;
+    left: -21px;
+    top: -4px;
+    width: 245px;
+    height: 30px;
+    overflow: hidden;
+}

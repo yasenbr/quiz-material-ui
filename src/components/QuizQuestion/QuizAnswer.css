@@ -1,0 +1,10 @@
+.cm-scroller,
+.cm-gutter {
+  background-color: #d3d3d3;
+}
+.cm-scroller, .cm-editor {
+  border-radius: 10px;
+}
+.cm-theme-light{
+  border-radius: 10px ;
+}

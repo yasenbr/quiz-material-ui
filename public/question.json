@@ -1,0 +1,77 @@
+{
+  "Questions": [
+    {
+      "type": "Quiz",
+      "number": 1,
+      "question": "How do you access dynamic data inside a JSX from the renderer function ?",
+      "answers": [
+        {
+          "text": "Using local state in the component",
+          "isCorrect": true,
+          "number": 11
+        },
+        { "text": "Using component props", "isCorrect": false, "number": 12 },
+        {
+          "text": "Wrapping the variable in question  with curly braces",
+          "isCorrect": false,
+          "number": 13
+        }
+      ]
+    },
+    {
+      "type": "Quiz",
+      "number": 2,
+      "question": "What are the potential problems of using indexes as key ?",
+      "answers": [
+        {
+          "text": "The index is not persisted and will change the moment the component re-renders",
+          "isCorrect": false,
+          "number": 21
+        },
+        {
+          "text": "if the order of items may change, that can negatively impact performance and my cause issues with component state",
+          "isCorrect": true,
+          "number": 22
+        },
+        {
+          "text": "An index is not guaranteed to be unique",
+          "isCorrect": false,
+          "number": 23
+        }
+      ]
+    },
+    {
+      "type": "Code",
+      "number": 3,
+      "question": "The todos array contains a list of todo objects, where each object has an id property that is unique. Which of the following code snippets will throw a React warning when opening up the browser console?",
+      "answers": [
+        {
+          "code": "{todos.map((todo, index) =>(\r\n          <ToDo key={index} id={todo.id}/>\r\n          ))}",
+          "isCorrect": false,
+          "number": 31
+        },
+        {
+          "code": "{todos.map((todo, index) =>(\r\n          <ToDo key={todo.id} id={todo.id}/>\r\n          ))}",
+          "isCorrect": false,
+          "number": 32
+        },
+        {
+          "code": "{todos.map((todo, index) =>(\r\n          <ToDo key='myKey' id={todo.id}/>\r\n          ))}",
+          "isCorrect": true,
+          "number": 33
+        }
+      ]
+    },
+    {
+      "type": "WRcode",
+      "number": 4,
+      "question": "Code problem resolution",
+      "problem": [
+        {
+          "title": "What is Lorem Ipsum?",
+          "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+        }
+      ]
+    }
+  ]
+}

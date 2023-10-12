@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Engagement&display=swap");
+
+.tq-title,.tq-title-result,.tq-title-code{
+  position: relative;
+  font-family: "Engagement", cursive;
+  font-weight: normal;
+  font-size: 80px;
+  line-height: 75px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.tq-title:after {
+    content: "i";
+    font-size: 85px;
+    color: #e77777;
+    position: absolute;
+    left: -25px;
+    top: 1px;
+    width: 476px;
+    height: 30px;
+    overflow: hidden;
+}
+
+.tq-subtitle {
+  font-size: 15px;
+  font-weight: normal;
+  margin-bottom: 20px;
+}
