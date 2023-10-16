@@ -49,8 +49,11 @@ function SandBox() {
     updateIframe();
   }, [cssCdnLines, html, css, jsCdnLines, js, iframeRef]);
 
-  
+
   function myIframeLoad() {
+    //execute link inside iframe
+    //first link  is for scrolling inside the box
+    //second link is loading outer links
     const iframe: any = document.getElementById("myIframe");
     let links = [];
     if (iframe && iframe.contentDocument) {
@@ -65,6 +68,7 @@ function SandBox() {
             console.log(hash);
             iframe.contentWindow.location.hash = "#" + hash;
           } else {
+            //Save the link in State to update the iframe in myFrame function
             if (href.startsWith("http://") || href.startsWith("https://")) {
               setSrcInfo(href);
             }
