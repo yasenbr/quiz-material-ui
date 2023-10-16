@@ -1,5 +1,5 @@
 import { Box, Button, Dialog, Grid } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import ViewInArSharpIcon from "@mui/icons-material/ViewInArSharp";
 import SandBoxEditor from "../components/SandBox/SandBoxEditor";
 import Modal from "../components/SandBox/Modal";
@@ -12,51 +12,112 @@ function SandBox() {
   const [html, setHtml] = useState("");
   const [css, setCss] = useState("");
   const [js, setJs] = useState("");
-  const [srcDoc, setSrcDoc] = useState("");
+  const [srcInfo, setSrcInfo] = useState("");
+  // const [PreviousIframeRef, setPreviousIframeRef] =
+  //   useState<HTMLIFrameElement | null>(null);
+
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  const updateIframe = () => {
+    const cssCdnLinks = cssCdnLines
+      .map((line) => `<link rel="stylesheet" href="${line}" />`)
+      .join("");
+    const jsCdLinks = jsCdnLines
+      .map((line) => `<script src="${line}"></script>`)
+      .join("");
+    const htmlDocument = `
+    <html lang="en" class="">
+      <head>
+        <title>temp document</title>
+        <meta charset="UTF-8">
+        ${cssCdnLinks}
+        <style>${css}</style>
+      </head>
+      <body>
+        <div id="root">${html}</div>
+      </body>
+      <script>${js}</script>
+      ${jsCdLinks}
+    </html>
+  `;
+    if (iframeRef.current) {
+      iframeRef.current.srcdoc = htmlDocument;
+    }
+  };
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      const cssCdnLinks = cssCdnLines
-        .map((line) => `<link rel="stylesheet" href="${line}" />`)
-        .join("");
-      const jsCdLinks = jsCdnLines
-        .map((line) => `<script src="${line}"></script>`)
-        .join("");
-      const htmlDocument = `
-      <html lang="en" class="">
-        <head>
-          <meta charset="UTF-8">
-          ${cssCdnLinks}
-          <style>${css}</style>
-        </head>
-        <body>
-        <div id="root">${html}</div>
-        </body>
-        <script>${js}</script>
-        ${jsCdLinks}
-        <script>
-        let link = document.getElementByTagName("a");
-        link.addEventListener("click", function(e) {
-            e.preventDefault();
-        });</script>
-      </html>
-    `;
-      setSrcDoc(htmlDocument);
-    }, 250);
+    updateIframe();
+  }, [cssCdnLines, html, css, jsCdnLines, js, iframeRef]);
 
-    // Clear the timeout and remove the event listener when the component unmounts
-    return () => {
-      clearTimeout(timeout);
-    };
-  }, [cssCdnLines, html, css, js]);
+  
+  function myIframeLoad() {
+    const iframe: any = document.getElementById("myIframe");
+    let links = [];
+    if (iframe && iframe.contentDocument) {
+      links = iframe.contentDocument.getElementsByTagName("a");
+      for (let i = 0; i < links.length; i++) {
+        let link = links[i];
+        link.addEventListener("click", function (e: any) {
+          e.preventDefault();
+          let href = e.target.href;
+          if (href.includes("sandbox#")) {
+            let hash = href.split("#")[1];
+            console.log(hash);
+            iframe.contentWindow.location.hash = "#" + hash;
+          } else {
+            if (href.startsWith("http://") || href.startsWith("https://")) {
+              setSrcInfo(href);
+            }
+          }
+        });
+      }
+    }
+  }
 
-  //define a function to update the CSS and JS lines from the parent component
+  const myFrame = (data: any) => {
+    if (data !== "") {
+      return (
+        <div>
+          <iframe
+            src={data}
+            id="myIframe"
+            width="100%"
+            height="500px"
+            style={{
+              backgroundColor: "lightgray",
+              outline: "none",
+              border: "none",
+              borderRadius: 10,
+            }}
+          />
+        </div>
+      );
+    } else {
+      return (
+        <iframe
+          id="myIframe"
+          ref={iframeRef}
+          onLoad={myIframeLoad}
+          width="100%"
+          height="100%"
+          style={{
+            backgroundColor: "lightgray",
+            outline: "none",
+            border: "none",
+            borderRadius: 10,
+          }}
+        />
+      );
+    }
+  };
+
   const handleUpdateCdnLines = (
     cssLinesFromParent: string[],
     jsLinesFromParent: string[]
   ) => {
     setCssCdnLines(cssLinesFromParent);
     setJsCdnLines(jsLinesFromParent);
+    setSrcInfo("");
   };
 
   const handleClickOpen = () => {
@@ -65,6 +126,21 @@ function SandBox() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const HandleSetHtml = (data: any) => {
+    setHtml(data);
+    setSrcInfo("");
+  };
+
+  const HandleSetCss = (data: any) => {
+    setCss(data);
+    setSrcInfo("");
+  };
+
+  const HandleSetJs = (data: any) => {
+    setJs(data);
+    setSrcInfo("");
   };
 
   return (
@@ -121,7 +197,7 @@ function SandBox() {
                 title="HTML"
                 language="html"
                 value={html}
-                onChange={setHtml}
+                onChange={(value: any) => HandleSetHtml(value)}
               />
             </Grid>
             <Grid item md={4} sm={12} xs={12}>
@@ -129,7 +205,7 @@ function SandBox() {
                 title="CSS"
                 language="css"
                 value={css}
-                onChange={setCss}
+                onChange={(value: any) => HandleSetCss(value)}
               />
             </Grid>
             <Grid item md={4} sm={12} xs={12}>
@@ -137,7 +213,7 @@ function SandBox() {
                 title="JS"
                 language="javascript"
                 value={js}
-                onChange={setJs}
+                onChange={(value: any) => HandleSetJs(value)}
               />
             </Grid>
           </Grid>
@@ -152,20 +228,7 @@ function SandBox() {
                 paddingBottom: 10,
                 height: "100%",
               }}>
-              <iframe
-                id="myIframe"
-                srcDoc={srcDoc}
-                title="output"
-                sandbox="same-origin allow-scripts"
-                width="100%"
-                height="100%"
-                style={{
-                  backgroundColor: "lightgray",
-                  outline: "none",
-                  border: "none",
-                  borderRadius: 10,
-                }}
-              />
+              {myFrame(srcInfo)}
             </div>
           </Grid>
         </Grid>

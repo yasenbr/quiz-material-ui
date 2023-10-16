@@ -41,7 +41,7 @@ function SandBoxEditor({ title, language, value, onChange }: Props) {
 
   function handleEditorChange(value: string | undefined) {
     if (value) {
-      // console.log("value", value);
+      console.log("value", value);
       onChange(value);
     }
   }
