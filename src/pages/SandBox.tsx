@@ -68,7 +68,7 @@ function SandBox() {
             console.log(hash);
             iframe.contentWindow.location.hash = "#" + hash;
           } else {
-            //Save the link in State to update the iframe in myFrame function
+            //Save the link in State to update the iframe in myFrame 
             if (href.startsWith("http://") || href.startsWith("https://")) {
               setSrcInfo(href);
             }

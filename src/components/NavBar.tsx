@@ -1,6 +1,5 @@
 import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 
