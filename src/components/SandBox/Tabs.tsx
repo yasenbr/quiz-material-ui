@@ -5,12 +5,29 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
+}
+interface VerticalTabsProps {
+  metaLines: string[];
+  cssLines: string[];
+  jsLines: string[];
+
+  onClick: {
+    metaCdnLines: string[];
+    cssCdnLines: string[];
+    jsCdnLines: string[];
+  };
+
+  onUpdateLines: (
+    metaLines: string[],
+    cssLines: string[],
+    jsLines: string[]
+  ) => void;
 }
 
 function TabPanel(props: TabPanelProps) {
@@ -40,54 +57,106 @@ function a11yProps(index: number) {
   };
 }
 
-export default function VerticalTabs(props: any) {
+export default function VerticalTabs(props: VerticalTabsProps) {
   console.log("props", props);
+  const initialMetaLines = props.onClick.metaCdnLines;
   const initialCssLines = props.onClick.cssCdnLines;
   const initialJsLines = props.onClick.jsCdnLines;
   const [value, setValue] = useState(0);
+  const [metaLines, setMetaLines] = useState<string[]>(initialMetaLines);
   const [cssLines, setCssLines] = useState<string[]>(initialCssLines);
   const [jsLines, setJsLines] = useState<string[]>(initialJsLines);
+  const [lines, setLines] = useState<string[]>([]);
 
-  const whiteTextStyle = {
-    color: "white",
-  };
+  // const whiteTextStyle = {
+  //   color: "white",
+  // };
 
   const {
+    metaLines: metaLinesFromParent,
     cssLines: cssLinesFromParent,
     jsLines: jsLinesFromParent,
     onUpdateLines,
   } = props;
 
+ 
+
+  const handleUpdate = (
+    e: { target: { value: any } },
+    lineUpdate: any,
+    index: number,
+    type: string
+  ) => {
+    const newLinesUpdate = [...lineUpdate];
+    newLinesUpdate[index] = e.target.value;
+    switch (type) {
+      case "meta":
+        setMetaLines(newLinesUpdate);
+        onUpdateLines(newLinesUpdate, jsLinesFromParent, cssLinesFromParent);
+        break;
+      case "css":
+        setCssLines(newLinesUpdate);
+        onUpdateLines(metaLinesFromParent, newLinesUpdate, jsLinesFromParent);
+        break;
+      case "js":
+        setJsLines(newLinesUpdate);
+        onUpdateLines(metaLinesFromParent, cssLinesFromParent, newLinesUpdate);
+        break;
+      default:
+        break;
+    }
+  };
+
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+    event.preventDefault();
     setValue(newValue);
   };
 
+  const handleAddLine = (
+    lines: string[],
+    setLines: { (value: SetStateAction<string[]>): void; (arg0: any[]): void }
+  ) => {
+    const newLines = [...lines, ""];
+    setLines(newLines);
+  };
+
+  const handleRemoveLine = (
+    indexToRemove: any,
+    lines: any[],
+    setLines: { (value: SetStateAction<string[]>): void; (arg0: any): void }
+  ) => {
+    const newLines = lines.filter((_, index) => index !== indexToRemove);
+    setLines(newLines);
+  };
+  const handleRemoveMetaLine = (indexToRemove: any) => {
+    // Create a new array without the line at the specified index
+    handleRemoveLine(indexToRemove, metaLines, setMetaLines);
+  };
+  const handleAddMetaClick = () => {
+    // Create a copy of the current meta lines and add a new line
+    handleAddLine(metaLines, setMetaLines);
+  };
   const handleAddCssClick = () => {
     // Create a copy of the current CSS lines and add a new line
-    const newCssLines = [...cssLines, ""];
-    setCssLines(newCssLines);
+    handleAddLine(cssLines, setCssLines);
   };
-
   const handleRemoveCssLine = (indexToRemove: any) => {
     // Create a new array without the line at the specified index
-    const newCssLines = cssLines.filter((_, index) => index !== indexToRemove);
-    setCssLines(newCssLines);
+    handleRemoveLine(indexToRemove, cssLines, setCssLines);
   };
-
-  console.log("verification:", cssLines);
-
+  const handleRemoveJsLine = (indexToRemove: any) => {
+    // Create a new array without the line at the specified index
+    handleRemoveLine(indexToRemove, jsLines, setJsLines);
+  };
   const handleAddJsClick = () => {
     // Create a copy of the current js lines and add a new line
-    const newJsLines = [...jsLines, ""];
-    setJsLines(newJsLines);
+    handleAddLine(jsLines, setJsLines);
   };
 
   return (
     <Box
       sx={{
         flexGrow: 1,
-        bgcolor: "#3e4045",
-        color: "#fff",
         display: "flex",
         height: 224,
       }}>
@@ -101,30 +170,39 @@ export default function VerticalTabs(props: any) {
           borderRight: 1,
           borderColor: "divider",
           width: "25%",
-          textColor: "#fff",
         }}>
-        <Tab label="HTML" {...a11yProps(0)} style={{ color: "#fff" }} />
-        <Tab label="CSS" {...a11yProps(1)} style={{ color: "#fff" }} />
-        <Tab label="JS" {...a11yProps(2)} style={{ color: "#fff" }} />
+        <Tab label="HTML" {...a11yProps(0)} />
+        <Tab label="CSS" {...a11yProps(1)} />
+        <Tab label="JS" {...a11yProps(2)} />
       </Tabs>
       <TabPanel value={value} index={0}>
         <Typography>Add meta tag to be added in the header</Typography>
-        <TextField
-          autoFocus
-          margin="dense"
-          id="html"
-          label="meta tag"
-          type="text"
-          fullWidth
-          variant="standard"
-          sx={{
-            input: { color: "white" },
-            label: { color: "white" },
-            "& .MuiInputBase-root .MuiInput-root::before": {
-              borderBottomColor: "#fff",
-            },
-          }}
-        />
+        {metaLines.map((line, index) => (
+          <div key={index} style={{ display: "flex" }}>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="html"
+              label="meta tag"
+              type="text"
+              value={line}
+              fullWidth
+              variant="standard"
+              onChange={(e) => handleUpdate(e, metaLines, index, "meta")}
+            />
+            <HighlightOffIcon
+              onClick={() => handleRemoveMetaLine(index)}
+              sx={{ mt: "30px", ml: "10px" }}
+            />
+          </div>
+        ))}
+        <Box sx={{ display: "flex" }}>
+          <AddCircleOutlineIcon
+            sx={{ cursor: "pointer", mr: "1rem" }}
+            onClick={handleAddMetaClick}
+          />
+          <Typography>add line</Typography>
+        </Box>
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Typography>
@@ -135,7 +213,6 @@ export default function VerticalTabs(props: any) {
         {cssLines.map((line, index) => (
           <div key={index} style={{ display: "flex" }}>
             <TextField
-              style={whiteTextStyle}
               autoFocus={index === cssLines.length - 1}
               margin="dense"
               id={`css-${index}`}
@@ -144,23 +221,7 @@ export default function VerticalTabs(props: any) {
               fullWidth
               variant="standard"
               value={line || ""}
-              sx={{
-                "& .MuiOutlinedInput-root": {
-                  "&.Mui-focused fieldset": {
-                    borderBottomColor: "white",
-                  },
-                },
-                input: { color: "white" },
-                label: { color: "white" },
-              }}
-              onChange={(e) => {
-                console.log("line", cssLines);
-                // Update the value of the corresponding CSS line
-                const newCssLines = [...cssLines];
-                newCssLines[index] = e.target.value;
-                setCssLines(newCssLines);
-                onUpdateLines(newCssLines, jsLinesFromParent);
-              }}
+              onChange={(e) => handleUpdate(e, cssLines, index, "css")}
             />
             <HighlightOffIcon
               onClick={() => handleRemoveCssLine(index)}
@@ -185,25 +246,24 @@ export default function VerticalTabs(props: any) {
           Pen.
         </Typography>
         {jsLines.map((line, index) => (
-          <TextField
-            key={index}
-            autoFocus={index === jsLines.length - 1} // Autofocus on the last added line
-            margin="dense"
-            id={`js-${index}`}
-            label="cdn js link"
-            type="text"
-            fullWidth
-            variant="standard"
-            value={line}
-            sx={{ input: { color: "white" }, label: { color: "white" } }}
-            onChange={(e) => {
-              // Update the value of the corresponding js line
-              const newJsLines = [...jsLines];
-              newJsLines[index] = e.target.value;
-              setJsLines(newJsLines);
-              onUpdateLines(cssLinesFromParent, newJsLines);
-            }}
-          />
+          <div key={index} style={{ display: "flex" }}>
+            <TextField
+              key={index}
+              autoFocus={index === jsLines.length - 1} // Autofocus on the last added line
+              margin="dense"
+              id={`js-${index}`}
+              label="cdn js link"
+              type="text"
+              fullWidth
+              variant="standard"
+              value={line}
+              onChange={(e) => handleUpdate(e, jsLines, index, "js")}
+            />
+            <HighlightOffIcon
+              onClick={() => handleRemoveJsLine(index)}
+              sx={{ mt: "30px", ml: "10px" }}
+            />
+          </div>
         ))}
         <Box sx={{ display: "flex" }}>
           <AddCircleOutlineIcon

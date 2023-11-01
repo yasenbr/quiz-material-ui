@@ -27,16 +27,15 @@ function Code() {
 
   return (
     <>
-      <div style={{ height: "10vh", backgroundColor: "#3e4045" }}>
+      <div style={{ height: "10vh"}}>
         <Container maxWidth="sm">
-          <Box sx={{ pt: "3rem", color: "#fff" }}>
+          <Box sx={{ pt: "3rem"}}>
             <h3 className="tq-title-code ">Code Test</h3>
           </Box>
         </Container>
       </div>
       <div
         style={{
-          backgroundColor: "#3e4045",
           height: "80vh",
           paddingTop: "5rem"
         }}>

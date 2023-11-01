@@ -8,6 +8,7 @@ import "./SandBox.css";
 function SandBox() {
   const [cssCdnLines, setCssCdnLines] = useState<string[]>([""]);
   const [jsCdnLines, setJsCdnLines] = useState<string[]>([""]);
+  const [metaCdnLines, setMetaCdnLines] = useState<string[]>([""]);
   const [open, setOpen] = useState(false);
   const [html, setHtml] = useState("");
   const [css, setCss] = useState("");
@@ -18,18 +19,20 @@ function SandBox() {
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  const updateIframe = () => {
-    const cssCdnLinks = cssCdnLines
-      .map((line) => `<link rel="stylesheet" href="${line}" />`)
-      .join("");
-    const jsCdLinks = jsCdnLines
-      .map((line) => `<script src="${line}"></script>`)
-      .join("");
-    const htmlDocument = `
+const updateIframe = () => {
+  const cssCdnLinks = cssCdnLines
+    .map((line) => `<link rel="stylesheet" href="${line}" />`)
+    .join("");
+  const jsCdLinks = jsCdnLines
+    .map((line) => `<script src="${line}"></script>`)
+    .join("");
+  console.log(metaCdnLines);
+  const htmlDocument = `
     <html lang="en" class="">
       <head>
         <title>temp document</title>
         <meta charset="UTF-8">
+        ${metaCdnLines}
         ${cssCdnLinks}
         <style>${css}</style>
       </head>
@@ -40,15 +43,14 @@ function SandBox() {
       ${jsCdLinks}
     </html>
   `;
-    if (iframeRef.current) {
-      iframeRef.current.srcdoc = htmlDocument;
-    }
-  };
+  if (iframeRef.current) {
+    iframeRef.current.srcdoc = htmlDocument;
+  }
+};
 
-  useEffect(() => {
-    updateIframe();
-  }, [cssCdnLines, html, css, jsCdnLines, js, iframeRef]);
-
+useEffect(() => {
+  updateIframe();
+}, [cssCdnLines, html, css, jsCdnLines, js, iframeRef]);
 
   function myIframeLoad() {
     //execute link inside iframe
@@ -115,14 +117,18 @@ function SandBox() {
     }
   };
 
-  const handleUpdateCdnLines = (
-    cssLinesFromParent: string[],
-    jsLinesFromParent: string[]
-  ) => {
-    setCssCdnLines(cssLinesFromParent);
-    setJsCdnLines(jsLinesFromParent);
-    setSrcInfo("");
-  };
+    const handleUpdateCdnLines = (
+      metaLinesFromParent: string[],
+      cssLinesFromParent: string[],
+      jsLinesFromParent: string[]
+    ) => {
+      setMetaCdnLines(metaLinesFromParent);
+      setCssCdnLines(cssLinesFromParent);
+      setJsCdnLines(jsLinesFromParent);
+//remove the link from the iframe when update happen
+      setSrcInfo("");
+    };
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -132,23 +138,25 @@ function SandBox() {
     setOpen(false);
   };
 
-  const HandleSetHtml = (data: any) => {
-    setHtml(data);
-    setSrcInfo("");
-  };
-
-  const HandleSetCss = (data: any) => {
-    setCss(data);
-    setSrcInfo("");
-  };
-
-  const HandleSetJs = (data: any) => {
-    setJs(data);
-    setSrcInfo("");
+  const handleSetValue = (data: any, type: string) => {
+    switch (type) {
+      case "html":
+        setHtml(data);
+        setSrcInfo("");
+        break;
+      case "css":
+        setCss(data);
+        setSrcInfo("");
+        break;
+      case "js":
+        setJs(data);
+        setSrcInfo("");
+        break;
+    }
   };
 
   return (
-    <div style={{ height: "100vh", backgroundColor: "#3E4046" }}>
+    <div style={{ height: "100vh" }}>
       <div className="top-panel">
         <Grid
           container
@@ -186,6 +194,7 @@ function SandBox() {
               </Box>
               <Dialog open={open} onClose={handleClose}>
                 <Modal
+                  metaLinesFromParent={metaCdnLines}
                   cssLinesFromParent={cssCdnLines}
                   jsLinesFromParent={jsCdnLines}
                   onUpdateCdnLines={handleUpdateCdnLines}
@@ -201,7 +210,7 @@ function SandBox() {
                 title="HTML"
                 language="html"
                 value={html}
-                onChange={(value: any) => HandleSetHtml(value)}
+                onChange={(value: any) => handleSetValue(value, "html")}
               />
             </Grid>
             <Grid item md={4} sm={12} xs={12}>
@@ -209,7 +218,7 @@ function SandBox() {
                 title="CSS"
                 language="css"
                 value={css}
-                onChange={(value: any) => HandleSetCss(value)}
+                onChange={(value: any) => handleSetValue(value, "css")}
               />
             </Grid>
             <Grid item md={4} sm={12} xs={12}>
@@ -217,7 +226,7 @@ function SandBox() {
                 title="JS"
                 language="javascript"
                 value={js}
-                onChange={(value: any) => HandleSetJs(value)}
+                onChange={(value: any) => handleSetValue(value, "js")}
               />
             </Grid>
           </Grid>
@@ -226,7 +235,6 @@ function SandBox() {
           <Grid item xs={12} md={12}>
             <div
               style={{
-                backgroundColor: "#3E4046",
                 paddingLeft: 12,
                 paddingRight: 12,
                 paddingBottom: 10,

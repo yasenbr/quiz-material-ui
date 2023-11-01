@@ -1,20 +1,40 @@
-import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-import { Link } from "react-router-dom";
+import { AppBar, Toolbar, Typography, IconButton, Button } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import Box from "@mui/material/Box";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 import "./NavBar.css";
 
-function NavBar() {
-  const darkTheme = createTheme({
-    palette: {
-      mode: "dark",
-      primary: {
-        main: "#1976d2",
-      },
-    },
-  });
+type Props = {
+  login: boolean;
+  themeColor: any;
+};
+function NavBar({ login, themeColor }: Props) {
   function appBarLabel(label: string) {
+    const navigate = useNavigate();
+
+    const HandleLogin = () => {
+      if (login) {
+        localStorage.setItem("login", "false");
+        navigate("/login");
+      } else {
+        localStorage.setItem("login", "true");
+        navigate("/");
+      }
+      window.location.reload();
+    };
+
+    const handleTheme = () => {
+      console.log("color", themeColor);
+      const newTheme = themeColor.themeColor === "dark" ? "light" : "dark";
+      localStorage.setItem("themeColor", newTheme);
+      window.dispatchEvent(new Event("NewDataEvent"));
+    };
+
     return (
-      <Toolbar sx={{backgroundColor:"#2c3440"}}>
+      <Toolbar>
         <IconButton
           edge="start"
           color="inherit"
@@ -23,9 +43,7 @@ function NavBar() {
           {/* <MenuIcon /> */}
         </IconButton>
         <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
-          <Link
-            to="/"
-            className="tq-logo">
+          <Link to="/" className="tq-logo">
             {label}
           </Link>
         </Typography>
@@ -47,16 +65,46 @@ function NavBar() {
           }}>
           SandBox
         </Link>
+        <Box>
+          <IconButton onClick={handleTheme}>
+            {themeColor.themeColor === "dark" ? (
+              <Brightness4Icon />
+            ) : (
+              <Brightness7Icon sx={{ color: "#fff" }} />
+            )}
+          </IconButton>
+        </Box>
+        <div>
+          {login ? (
+            <IconButton
+              onClick={HandleLogin}
+              color="error"
+              sx={{
+                borderRadius: "10%",
+                width: "50px",
+              }}>
+              <FontAwesomeIcon icon={faPowerOff} size="xl" />
+            </IconButton>
+          ) : (
+            <IconButton
+              onClick={HandleLogin}
+              color="success"
+              sx={{
+                borderRadius: "10%",
+                width: "50px",
+              }}>
+              <FontAwesomeIcon icon={faPowerOff} size="xl" />
+            </IconButton>
+          )}
+        </div>
       </Toolbar>
     );
   }
   return (
     <div>
-      <ThemeProvider theme={darkTheme}>
-        <AppBar position="static" color="secondary">
-          {appBarLabel("Evaluation Module")}
-        </AppBar>
-      </ThemeProvider>
+      <AppBar position="static" color="primary">
+        {appBarLabel("Evaluation Module")}
+      </AppBar>
     </div>
   );
 }

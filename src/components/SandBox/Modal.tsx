@@ -15,52 +15,65 @@ import { useState } from "react";
 function Modal(props: any) {
   const {
     onChange,
+    metaLinesFromParent: metaCdnLines,
     cssLinesFromParent: cssCdnLines,
     jsLinesFromParent: jsCdnLines,
     onUpdateCdnLines,
   } = props;
+
   const [cssLinesFromParent, setCssLinesFromParent] = useState<string[]>([""]);
   const [jsLinesFromParent, setJsLinesFromParent] = useState<string[]>([""]);
+  const [metaLinesFromParent, setMetaLinesFromParent] = useState<string[]>([
+    "",
+  ]);
 
   // Define a function to update the CSS and JS lines from the parent component
-  const handleUpdateLines = (cssLines: string[], jsLines: string[]) => {
+  const handleUpdateLines = (
+    metaLines: string[],
+    cssLines: string[],
+    jsLines: string[]
+  ) => {
+    // console.log("metaLines", metaLines);
+    // console.log("cssLines", cssLines);
+    // console.log("jsLines", jsLines);
+    setMetaLinesFromParent(metaLines);
     setCssLinesFromParent(cssLines);
     setJsLinesFromParent(jsLines);
   };
 
   function handleSubmit() {
     onChange(false);
-    onUpdateCdnLines(cssLinesFromParent, jsLinesFromParent);
+    onUpdateCdnLines(
+      metaLinesFromParent,
+      cssLinesFromParent,
+      jsLinesFromParent
+    );
   }
   function handleClose() {
     onChange(false);
   }
 
   const propsBack = {
-    cssCdnLines,
-    jsCdnLines,
+    metaCdnLines: metaCdnLines,
+    cssCdnLines: cssCdnLines,
+    jsCdnLines: jsCdnLines,
   };
 
   return (
     <>
-      <DialogTitle sx={{ bgcolor: "#3e4045", color: "#fff" }}>
-        SandBox Setting
-      </DialogTitle>
-      <DialogContent sx={{ bgcolor: "#3e4045", color: "#fff" }}>
+      <DialogTitle>SandBox Setting</DialogTitle>
+      <DialogContent>
         <VerticalTabs
+          metaLines={metaLinesFromParent}
           cssLines={cssLinesFromParent}
           jsLines={jsLinesFromParent}
           onUpdateLines={handleUpdateLines}
           onClick={propsBack}
         />
       </DialogContent>
-      <DialogActions sx={{ bgcolor: "#3e4045", color: "#fff" }}>
-        <Button onClick={handleSubmit} sx={{ color: "#fff" }}>
-          Submit
-        </Button>
-        <Button onClick={handleClose} sx={{ color: "#fff" }}>
-          close
-        </Button>
+      <DialogActions>
+        <Button onClick={handleSubmit}>Submit</Button>
+        <Button onClick={handleClose}>close</Button>
       </DialogActions>
     </>
   );

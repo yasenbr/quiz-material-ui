@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import scoreReducer from "../src/redux/scoreReducer";
 import { Route, Routes } from "react-router-dom";
+import { useTheme,ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import Quiz from "./pages/Quiz";
@@ -13,36 +14,51 @@ import Code from "./pages/Code";
 import NavBar from "./components/NavBar";
 import SandBox from "./pages/SandBox";
 import Footer from "./components/Footer";
+import { useState } from "react";
 
 const store = configureStore({
   reducer: {
     score: scoreReducer,
   },
 });
-const isLoggedIn = true;
 
-function App() {
+function App(themeColor: any) {
+  const theme=useTheme();
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
+  if (localStorage.getItem("login") === "false") {
+    setIsLoggedIn(false);
+    localStorage.clear();
+  }
+  console.log(isLoggedIn);
+  console.log("theme->", theme);
+  
+
   return (
     <>
-      <div style={{ backgroundColor: "" , height:"100vh"}}>
+      <div style={{ backgroundColor: "", height: "100vh" }}>
         <Provider store={store}>
-          <CssBaseline />
-          {isLoggedIn ? (
-            <>
-              <NavBar />
-              <Routes>
-                <Route path="/" element={<Quiz />} />
-                <Route path="/code" element={<Code />} />
-                <Route path="/sandbox" element={<SandBox />} />
-                <Route path="/result" element={<Result />} />
-              </Routes>
-              <Footer/>
-            </>
-          ) : (
-            <Routes>
-              <Route path="/" element={<Login />} />
-            </Routes>
-          )}
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <NavBar login={isLoggedIn} themeColor={themeColor} />
+            {isLoggedIn ? (
+              <>
+                <Routes>
+                  <Route path="/" element={<Quiz />} />
+                  <Route path="/code" element={<Code />} />
+                  <Route path="/sandbox" element={<SandBox />} />
+                  <Route path="/result" element={<Result />} />
+                </Routes>
+                <Footer />
+              </>
+            ) : (
+              <>
+                <Routes>
+                  <Route path="/login" element={<Login />} />
+                </Routes>
+              </>
+            )}
+          </ThemeProvider>
         </Provider>
       </div>
     </>

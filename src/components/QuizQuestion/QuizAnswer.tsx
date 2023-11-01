@@ -86,7 +86,6 @@ export default function QuizAnswer({
         {type === "Quiz"
           ? localAnswers?.map((answer: any, index: number) => (
               <FormControlLabel
-                sx={{ color: "#d3d3d3" }}
                 control={
                   <Radio
                     key={index}

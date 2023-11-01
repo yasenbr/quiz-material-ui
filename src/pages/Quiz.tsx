@@ -28,10 +28,10 @@ function Quiz() {
 
   return (
     <>
-      <div style={{ backgroundColor: "#3e4045" }}>
+      <div>
         <div>
           <Container maxWidth="sm">
-            <Box sx={{ pt: "5rem", mb: "5rem", color: "#fff" }}>
+            <Box sx={{ pt: "5rem", mb: "5rem"}}>
               <h3 className="tq-title">Quiz Module</h3>
             </Box>
           </Container>

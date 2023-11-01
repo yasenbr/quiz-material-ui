@@ -8,7 +8,7 @@ function QuizQuestion(data: any) {
           {item.type === "WRcode" ? null : (
             <Container maxWidth="md">
               <div>
-                <Typography variant="h6" sx={{color:"#fff"}}>
+                <Typography variant="h6">
                   {item.number}.{item.question}
                 </Typography>
               </div>
