@@ -30,7 +30,7 @@ function Item(props: BoxProps) {
 }
 
 function extractErrorInfo(res: any) {
-  if (res.message.includes("ReferenceError:") || res.message.includes("TypeError:")) {
+  if (res.message.includes("ReferenceError:") || res.message.includes("TypeError:")|| res.message.includes("SyntaxError:")) {
     const lines = res.message.split("\n");
 
     let filePath = null;
@@ -49,7 +49,7 @@ function extractErrorInfo(res: any) {
         if (lineMatch) {
           lineWithError = parseInt(lineMatch[1]);
         }
-      } else if (line.includes("ReferenceError") || line.includes("TypeError")) {
+      } else if (line.includes("ReferenceError") || line.includes("TypeError") || line.includes("SyntaxError")) {
         errorMessage = line;
       }
     }
