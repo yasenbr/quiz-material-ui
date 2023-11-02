@@ -21,9 +21,9 @@ function Result() {
 
   return (
     <div
-      style={{ height: "auto", minHeight: "83vh", backgroundColor: "#3e4045",paddingBottom:"18.5rem" }}>
+      style={{ height: "auto", minHeight: "84vh",paddingBottom:"18.5rem" }}>
       <Container maxWidth="sm">
-        <Box sx={{ pt: "5rem", mb: "6rem", color: "#FFF" }}>
+        <Box sx={{ pt: "5rem", mb: "6rem"}}>
           <h3 className="tq-title-result">Result</h3>
         </Box>
       </Container>
@@ -31,7 +31,6 @@ function Result() {
         <Typography
           variant="h6"
           align="center"
-          color="#d3d3d3"
           margin="marginTop={4}"
           gutterBottom>
           Your score is: {score} out of {data?.Questions.length - 1}

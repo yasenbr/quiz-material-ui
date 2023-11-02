@@ -55,6 +55,7 @@ const darkMode = createTheme({
 
 function Main() {
   const [mode, setMode] = useState("light");
+  const [mouseTrack, setMouseTrack] = useState(false);
   window.addEventListener(
     "NewDataEvent",
     () => {
@@ -66,6 +67,16 @@ function Main() {
     },
     false
   );
+
+ 
+    document.documentElement.addEventListener("mouseleave", () => {
+      // console.log("out");
+      setMouseTrack(true);
+    });
+    document.documentElement.addEventListener("mouseenter", () => {
+      // console.log("in");
+      setMouseTrack(false);
+    });
 
   const theme = () => {
     if (mode === "light") {
@@ -83,7 +94,7 @@ function Main() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
-        <App themeColor={mode} />
+        <App themeColor={mode} mouseTrack={mouseTrack}/>
       </BrowserRouter>
     </ThemeProvider>
   );

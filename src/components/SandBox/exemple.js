@@ -1,67 +1,34 @@
-//import useRef
-import { useState, useRef } from "react";
-import Input from "./Input";
-import "./App.css";
+function extractErrorInfo(text) {
+  if (text.includes("ReferenceError:")) {
+    const lines = errorText.split("\n");
 
-function App() {
-  const [formValues, setFormValues] = useState([]);
-  const [toggle, setToggle] = useState(false);
+    let filePath = null;
+    let lineWithError = null;
+    let errorMessage = null;
 
-  const inputRef = useRef();
-  const selectRef = useRef();
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (line.startsWith("C:")) {
+        filePath = line;
+        // Check if there's a colon followed by a line number
+        const lineMatch = line.match(/:(\d+)$/);
+        if (lineMatch) {
+          lineWithError = parseInt(lineMatch[1]);
+        }
+      } else if (line.includes("ReferenceError")) {
+        errorMessage = line;
+      }
+    }
 
-  const handleChange = (e, index) => {
-    const values = [...formValues];
-    values[index].value = e.target.value;
-    setFormValues(values);
-  };
-
-  const handleAddField = (e) => {
-    e.preventDefault();
-    const values = [...formValues];
-    values.push({
-      label: inputRef.current.value || "label",
-      type: selectRef.current.value || "text",
-      value: "",
-    });
-    setFormValues(values);
-    setToggle(false);
-  };
-
-  const addBtnClick = (e) => {
-    e.preventDefault();
-    setToggle(true);
-  };
-
-  return (
-    <div className="App">
-      <form>
-        //... ))}
-        {!toggle ? (
-          <div className="center">
-            <button className="add-btn" onClick={addBtnClick}>
-              Add new
-            </button>
-          </div>
-        ) : (
-          <div className="dialog-box">
-            <input type="text" placeholder="label" ref={inputRef} />
-            <select ref={selectRef}>
-              <option value="text">Text</option>
-              <option value="number">Number</option>
-              <option value="email">Email</option>
-              <option value="password">Password</option>
-            </select>
-            <button className="add-btn" onClick={handleAddField}>
-              Add
-            </button>
-          </div>
-        )}
-        <button type="submit" className="submit-btn">
-          Submit
-        </button>
-      </form>
-    </div>
-  );
+    return {
+      filePath,
+      lineWithError,
+      errorMessage,
+    };
+  }else{
+    return text;
+  }
 }
-export default App;
+
+const errorInfo = extractErrorInfo(errorText);
+console.log(errorInfo);

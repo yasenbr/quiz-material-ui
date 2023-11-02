@@ -2,7 +2,7 @@ import { AppBar, Toolbar, Typography, IconButton, Button } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
+import { faPowerOff, faCircle } from "@fortawesome/free-solid-svg-icons";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import "./NavBar.css";
@@ -10,8 +10,9 @@ import "./NavBar.css";
 type Props = {
   login: boolean;
   themeColor: any;
+  mouseTrack: boolean;
 };
-function NavBar({ login, themeColor }: Props) {
+function NavBar({ login, themeColor, mouseTrack }: Props) {
   function appBarLabel(label: string) {
     const navigate = useNavigate();
 
@@ -28,10 +29,13 @@ function NavBar({ login, themeColor }: Props) {
 
     const handleTheme = () => {
       console.log("color", themeColor);
-      const newTheme = themeColor.themeColor === "dark" ? "light" : "dark";
+      const newTheme = themeColor === "dark" ? "light" : "dark";
+      console.log("newTheme", newTheme);
       localStorage.setItem("themeColor", newTheme);
       window.dispatchEvent(new Event("NewDataEvent"));
     };
+
+    console.log("mouseTrack->", mouseTrack);
 
     return (
       <Toolbar>
@@ -47,6 +51,13 @@ function NavBar({ login, themeColor }: Props) {
             {label}
           </Link>
         </Typography>
+        {mouseTrack ? (
+          <IconButton sx={{ color: "red" }}>
+            <FontAwesomeIcon icon={faCircle} />
+          </IconButton>
+        ) : (
+          ""
+        )}
         <Link
           to="/code"
           style={{
@@ -67,10 +78,10 @@ function NavBar({ login, themeColor }: Props) {
         </Link>
         <Box>
           <IconButton onClick={handleTheme}>
-            {themeColor.themeColor === "dark" ? (
-              <Brightness4Icon />
+            {themeColor === "dark" ? (
+              <Brightness7Icon />
             ) : (
-              <Brightness7Icon sx={{ color: "#fff" }} />
+              <Brightness4Icon sx={{ color: "#fff" }} />
             )}
           </IconButton>
         </Box>

@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import scoreReducer from "../src/redux/scoreReducer";
 import { Route, Routes } from "react-router-dom";
-import { useTheme,ThemeProvider } from "@mui/material/styles";
+import { useTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
 import Quiz from "./pages/Quiz";
@@ -21,18 +21,22 @@ const store = configureStore({
     score: scoreReducer,
   },
 });
+type Props = {
+  themeColor: any;
+  mouseTrack: boolean;
+};
 
-function App(themeColor: any) {
-  const theme=useTheme();
+function App({themeColor, mouseTrack}: Props) {
+  const theme = useTheme();
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   if (localStorage.getItem("login") === "false") {
     setIsLoggedIn(false);
     localStorage.clear();
   }
-  console.log(isLoggedIn);
-  console.log("theme->", theme);
-  
+  // console.log(isLoggedIn);
+  console.log("theme->", themeColor);
+  // console.log("mouseTrack->;", mouseTrack);
 
   return (
     <>
@@ -40,7 +44,11 @@ function App(themeColor: any) {
         <Provider store={store}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
-            <NavBar login={isLoggedIn} themeColor={themeColor} />
+            <NavBar
+              login={isLoggedIn}
+              themeColor={themeColor}
+              mouseTrack={mouseTrack}
+            />
             {isLoggedIn ? (
               <>
                 <Routes>

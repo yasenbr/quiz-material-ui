@@ -29,6 +29,42 @@ function Item(props: BoxProps) {
   );
 }
 
+function extractErrorInfo(res: any) {
+  if (res.message.includes("ReferenceError:") || res.message.includes("TypeError:")) {
+    const lines = res.message.split("\n");
+
+    let filePath = null;
+    let lineWithError = null;
+    let errorMessage = null;
+    let message = [];
+
+    console.log("lines", lines.length);
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (line.startsWith("C:")) {
+        filePath = line;
+        // Check if there's a colon followed by a line number
+        const lineMatch = line.match(/:(\d+)$/);
+        if (lineMatch) {
+          lineWithError = parseInt(lineMatch[1]);
+        }
+      } else if (line.includes("ReferenceError") || line.includes("TypeError")) {
+        errorMessage = line;
+      }
+    }
+    errorMessage
+      ? message.push(errorMessage + " at line " + lineWithError)
+      : "";
+
+    return {
+      message,
+    };
+  } else {
+    return res;
+  }
+}
+
 const files: any = {
   "script.js": {
     name: "script.js",
@@ -71,7 +107,9 @@ function CodeEditor(taskProps: any) {
     CompilerApi.run(task)
       .then((res) => {
         console.log("callback:", res);
-        setResponse(res);
+        const message = extractErrorInfo(res);
+        console.log("message", message);
+        setResponse(message);
       })
       .catch((error) => {
         console.log(error);
@@ -89,7 +127,7 @@ function CodeEditor(taskProps: any) {
     setResponse({ status: "0", message: "" });
   }
 
-  console.log("response -2", response.message);
+  console.log("response -2", response);
 
   return (
     <>
@@ -128,11 +166,11 @@ function CodeEditor(taskProps: any) {
             onChange={handleCodeChange}
             path={file}></Editor>
           <Button onClick={handleRun} variant="contained" sx={{ mt: 2 }}>
-            compile code
+            Execute
           </Button>
-          <Button variant="contained" sx={{ mt: 2, ml: 2 }}>
+          {/* <Button variant="contained" sx={{ mt: 2, ml: 2 }}>
             submit code
-          </Button>
+          </Button> */}
         </Item>
         <Item
           sx={{
