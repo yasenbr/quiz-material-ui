@@ -4,17 +4,9 @@ import { Link } from "react-router-dom";
 import "./NavBar.css";
 
 function Footer() {
-  const darkTheme = createTheme({
-    palette: {
-      mode: "dark",
-      primary: {
-        main: "#1976d2",
-      },
-    },
-  });
   function appBarLabel(label: string) {
     return (
-      <Toolbar sx={{ backgroundColor: "#2c3440" }}>
+      <Toolbar>
         <IconButton
           edge="start"
           color="inherit"
@@ -32,11 +24,9 @@ function Footer() {
   }
   return (
     <div>
-      <ThemeProvider theme={darkTheme}>
-        <AppBar position="static" color="secondary">
+        <AppBar position="static" color="primary">
           {appBarLabel("Evaluation Module Footer")}
         </AppBar>
-      </ThemeProvider>
     </div>
   );
 }
