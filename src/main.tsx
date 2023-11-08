@@ -2,7 +2,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -56,27 +56,40 @@ const darkMode = createTheme({
 function Main() {
   const [mode, setMode] = useState("light");
   const [mouseTrack, setMouseTrack] = useState(false);
-  window.addEventListener(
-    "NewDataEvent",
-    () => {
-      console.log("storage changed", localStorage.getItem("themeColor"));
 
-      localStorage.getItem("themeColor") != "light"
-        ? setMode("dark")
-        : setMode("light");
-    },
-    false
-  );
+   useEffect(() => {
+     const handleNewDataEvent = () => {
+       console.log("storage changed", localStorage.getItem("themeColor"));
+       localStorage.getItem("themeColor") !== "light"
+         ? setMode("dark")
+         : setMode("light");
+     };
 
- 
-    document.documentElement.addEventListener("mouseleave", () => {
-      // console.log("out");
-      setMouseTrack(true);
-    });
-    document.documentElement.addEventListener("mouseenter", () => {
-      // console.log("in");
-      setMouseTrack(false);
-    });
+     const handleMouseLeave = () => {
+       setMouseTrack(true);
+     };
+
+     const handleMouseEnter = () => {
+       setMouseTrack(false);
+     };
+
+     window.addEventListener("NewDataEvent", handleNewDataEvent, false);
+     document.documentElement.addEventListener("mouseleave", handleMouseLeave);
+     document.documentElement.addEventListener("mouseenter", handleMouseEnter);
+
+     return () => {
+       // Cleanup event listeners when the component unmounts
+       window.removeEventListener("NewDataEvent", handleNewDataEvent);
+       document.documentElement.removeEventListener(
+         "mouseleave",
+         handleMouseLeave
+       );
+       document.documentElement.removeEventListener(
+         "mouseenter",
+         handleMouseEnter
+       );
+     };
+   }, []);
 
   const theme = () => {
     if (mode === "light") {
