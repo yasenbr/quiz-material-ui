@@ -1,25 +1,13 @@
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import QuizQuestion from "../components/QuizQuestion/QuizQuestion";
-import { QuizQuestionType } from "../typings";
 import { Box, Container } from "@mui/material";
 import Button from "@mui/material/Button";
 import "./Quiz.css";
+import { getQuestions } from "../middleware/api";
 
 function Quiz() {
-  const [data, setData] = useState<{ Questions: QuizQuestionType[] }>();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    fetch("question.json")
-      .then((response) => response.json())
-      .then((jsonData) => {
-        setData(jsonData);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-  }, []);
+  const data = getQuestions();
 
   const handleResultClick = () => {
     // Navigate to the "Result" page and pass the length of Questions as a state parameter
@@ -31,7 +19,7 @@ function Quiz() {
       <div>
         <div>
           <Container maxWidth="sm">
-            <Box sx={{ pt: "5rem", mb: "5rem"}}>
+            <Box sx={{ pt: "5rem", mb: "5rem" }}>
               <h3 className="tq-title">Quiz Module</h3>
             </Box>
           </Container>
