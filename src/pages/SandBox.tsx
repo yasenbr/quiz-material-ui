@@ -1,45 +1,55 @@
 import { Box, Button, Dialog, Grid } from "@mui/material";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useReducer } from "react";
 import ViewInArSharpIcon from "@mui/icons-material/ViewInArSharp";
 import SandBoxEditor from "../components/SandBox/SandBoxEditor";
 import Modal from "../components/SandBox/Modal";
 import "./SandBox.css";
 
 function SandBox() {
-  const [cssCdnLines, setCssCdnLines] = useState<string[]>([""]);
-  const [jsCdnLines, setJsCdnLines] = useState<string[]>([""]);
-  const [metaCdnLines, setMetaCdnLines] = useState<string[]>([""]);
-  const [open, setOpen] = useState(false);
-  const [html, setHtml] = useState("");
-  const [css, setCss] = useState("");
-  const [js, setJs] = useState("");
-  const [srcInfo, setSrcInfo] = useState("");
+
+const [event, updateEvent] = useReducer(
+  (prev: any, next: any) => {
+    const newEvent = { ...prev, ...next };
+    console.log("newEvent", newEvent);
+    return newEvent;
+  },
+  { html: "", css: "", js: "", srcInfo: "", open: false, metaCdnLines : [""] , cssCdnLines : [""] , jsCdnLines : [""]}
+);
+
+  // const [cssCdnLines, setCssCdnLines] = useState<string[]>([""]);
+  // const [jsCdnLines, setJsCdnLines] = useState<string[]>([""]);
+  // const [metaCdnLines, setMetaCdnLines] = useState<string[]>([""]);
+  // const [open, setOpen] = useState(false);
+  // const [html, setHtml] = useState("");
+  // const [css, setCss] = useState("");
+  // const [js, setJs] = useState("");
+  // const [srcInfo, setSrcInfo] = useState("");
   // const [PreviousIframeRef, setPreviousIframeRef] =
   //   useState<HTMLIFrameElement | null>(null);
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
 const updateIframe = () => {
-  const cssCdnLinks = cssCdnLines
-    .map((line) => `<link rel="stylesheet" href="${line}" />`)
+  const cssCdnLinks = event.cssCdnLines
+    .map((line: any) => `<link rel="stylesheet" href="${line}" />`)
     .join("");
-  const jsCdLinks = jsCdnLines
-    .map((line) => `<script src="${line}"></script>`)
+  const jsCdLinks = event.jsCdnLines
+    .map((line: any) => `<script src="${line}"></script>`)
     .join("");
-  console.log(metaCdnLines);
+  console.log(event.metaCdnLines);
   const htmlDocument = `
     <html lang="en" class="">
       <head>
         <title>temp document</title>
         <meta charset="UTF-8">
-        ${metaCdnLines}
+        ${event.metaCdnLines}
         ${cssCdnLinks}
-        <style>${css}</style>
+        <style>${event.css}</style>
       </head>
       <body>
-        <div id="root">${html}</div>
+        <div id="root">${event.html}</div>
       </body>
-      <script>${js}</script>
+      <script>${event.js}</script>
       ${jsCdLinks}
     </html>
   `;
@@ -50,7 +60,7 @@ const updateIframe = () => {
 
 useEffect(() => {
   updateIframe();
-}, [cssCdnLines, html, css, jsCdnLines, js, iframeRef]);
+}, [event.cssCdnLines, event.html, event.css, event.jsCdnLines, event.js, iframeRef, event.metaCdnLines]);
 
   function myIframeLoad() {
     //execute link inside iframe
@@ -72,7 +82,7 @@ useEffect(() => {
           } else {
             //Save the link in State to update the iframe in myFrame 
             if (href.startsWith("http://") || href.startsWith("https://")) {
-              setSrcInfo(href);
+              updateEvent({srcInfo: href});
             }
           }
         });
@@ -122,35 +132,35 @@ useEffect(() => {
       cssLinesFromParent: string[],
       jsLinesFromParent: string[]
     ) => {
-      setMetaCdnLines(metaLinesFromParent);
-      setCssCdnLines(cssLinesFromParent);
-      setJsCdnLines(jsLinesFromParent);
+      updateEvent({metaCdnLines :metaLinesFromParent});
+      updateEvent({cssCdnLines :cssLinesFromParent});
+      updateEvent({ jsCdnLines: jsLinesFromParent });
 //remove the link from the iframe when update happen
-      setSrcInfo("");
+      updateEvent({srcInfo:""});
     };
 
 
   const handleClickOpen = () => {
-    setOpen(true);
+    updateEvent({open:true});
   };
 
   const handleClose = () => {
-    setOpen(false);
+    updateEvent({ open: false });
   };
 
   const handleSetValue = (data: any, type: string) => {
     switch (type) {
       case "html":
-        setHtml(data);
-        setSrcInfo("");
+        updateEvent({html:data});
+        updateEvent({srcInfo:""});
         break;
       case "css":
-        setCss(data);
-        setSrcInfo("");
+        updateEvent({css:data});
+        updateEvent({srcInfo:""});
         break;
       case "js":
-        setJs(data);
-        setSrcInfo("");
+        updateEvent({js:data});
+        updateEvent({srcInfo:""});
         break;
     }
   };
@@ -192,13 +202,13 @@ useEffect(() => {
                   </Button>
                 </Box>
               </Box>
-              <Dialog open={open} onClose={handleClose}>
+              <Dialog open={event.open} onClose={handleClose}>
                 <Modal
-                  metaLinesFromParent={metaCdnLines}
-                  cssLinesFromParent={cssCdnLines}
-                  jsLinesFromParent={jsCdnLines}
+                  metaLinesFromParent={event.metaCdnLines}
+                  cssLinesFromParent={event.cssCdnLines}
+                  jsLinesFromParent={event.jsCdnLines}
                   onUpdateCdnLines={handleUpdateCdnLines}
-                  onChange={setOpen}
+                  onChange={(value:any) => updateEvent({open:value})}
                 />
               </Dialog>
             </Grid>
@@ -209,7 +219,7 @@ useEffect(() => {
               <SandBoxEditor
                 title="HTML"
                 language="html"
-                value={html}
+                value={event.html}
                 onChange={(value: any) => handleSetValue(value, "html")}
               />
             </Grid>
@@ -217,7 +227,7 @@ useEffect(() => {
               <SandBoxEditor
                 title="CSS"
                 language="css"
-                value={css}
+                value={event.css}
                 onChange={(value: any) => handleSetValue(value, "css")}
               />
             </Grid>
@@ -225,7 +235,7 @@ useEffect(() => {
               <SandBoxEditor
                 title="JS"
                 language="javascript"
-                value={js}
+                value={event.js}
                 onChange={(value: any) => handleSetValue(value, "js")}
               />
             </Grid>
@@ -240,7 +250,7 @@ useEffect(() => {
                 paddingBottom: 10,
                 height: "100%",
               }}>
-              {myFrame(srcInfo)}
+              {myFrame(event.srcInfo)}
             </div>
           </Grid>
         </Grid>
