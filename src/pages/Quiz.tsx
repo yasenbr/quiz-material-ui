@@ -4,10 +4,15 @@ import { Box, Container } from "@mui/material";
 import Button from "@mui/material/Button";
 import "./Quiz.css";
 import { getQuestions } from "../middleware/api";
+import { initialState } from "../redux/scoreReducer";
+import { useDispatch } from "react-redux";
 
 function Quiz() {
   const navigate = useNavigate();
   const data = getQuestions();
+  const dispatch = useDispatch();
+
+  dispatch(initialState(0));
 
   const handleResultClick = () => {
     // Navigate to the "Result" page and pass the length of Questions as a state parameter

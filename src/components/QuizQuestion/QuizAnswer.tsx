@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useReducer } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { useDispatch } from "react-redux";
 import { javascript } from "@codemirror/lang-javascript";
@@ -6,7 +6,8 @@ import { decrementScore, incrementScore } from "../../redux/scoreReducer";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Container from "@mui/material/Container";
 import { FormControl, Radio, RadioGroup } from "@mui/material";
-import "./QuizAnswer.css"
+import "./QuizAnswer.css";
+
 interface QuizAnswerProps {
   answers: any[];
   type: any;
@@ -17,10 +18,15 @@ export default function QuizAnswer({
   type,
 }: QuizAnswerProps) {
   const dispatch = useDispatch();
-  const [localAnswers, setLocalAnswers] = useState(initialAnswers);
-  const [selectedTrueAnswer, setSelectedTrueAnswer] = useState(false);
-  // Create a state variable to hold the selected value
-  const [selectedValue, setSelectedValue] = useState("");
+  
+  const [event, updateEvent] = useReducer(
+    (prev: any, next: any) => {
+      const newEvent = { ...prev, ...next };
+      console.log("newEvent", newEvent);
+      return newEvent;
+    },
+    { localAnswers: initialAnswers, selectedTrueAnswer: false , selectedValue: ""}
+  );
 
   function formatJSXCode(jsxString: string) {
     jsxString = jsxString.replace(/^"|"$/g, "");
@@ -39,52 +45,48 @@ export default function QuizAnswer({
     );
   }
 
-  console.log("selectedTrueAnswer", selectedTrueAnswer);
+  console.log("selectedTrueAnswer", event.selectedTrueAnswer);
 
   // Function to handle radio button change
   const handleRadioChange = (event: any) => {
-    setSelectedValue(event.target.value);
+    updateEvent({selectedValue: event.target.value});
   };
-  console.log("selectedValue", selectedValue);
+  console.log("selectedValue", event.selectedValue);
 
   function optionClicked(isCorrect: boolean, answerIndex: number) {
-    // console.log("answerIndex", answerIndex);
-    // console.log("isCorrect", isCorrect);
-
-    const updatedAnswers = localAnswers.map((answer, index) => {
-      if (index === answerIndex) {
-        return { ...answer, isSelected: true };
-      } else {
-        return { ...answer, isSelected: false };
+    const updatedAnswers = event.localAnswers.map(
+      (answer: any, index: number) => {
+        if (index === answerIndex) {
+          return { ...answer, isSelected: true };
+        } else {
+          return { ...answer, isSelected: false };
+        }
       }
-    });
+    );
+    updateEvent({ localAnswers: updatedAnswers });
 
-    setLocalAnswers(updatedAnswers);
-    console.log("updatedAnswers", updatedAnswers);
-
-    
     if (isCorrect) {
-      if (localAnswers[answerIndex].isSelected) {
-        return
-      }else
-      if (!localAnswers[answerIndex].isSelected) {
+      if (event.localAnswers[answerIndex].isSelected) {
+        return;
+      } else if (!event.localAnswers[answerIndex].isSelected) {
         dispatch(incrementScore(1));
       } else {
         dispatch(decrementScore(1));
       }
-      setSelectedTrueAnswer(!localAnswers[answerIndex].isSelected);
-    } else if (!isCorrect && selectedTrueAnswer) {
+      updateEvent({ selectedTrueAnswer: !event.localAnswers[answerIndex].isSelected});
+    } else if (!isCorrect && event.selectedTrueAnswer) {
       dispatch(decrementScore(1));
-      setSelectedTrueAnswer(false);
+      updateEvent({ selectedTrueAnswer: false});
     }
-
   }
+
+  console.log("event", event);
 
   return (
     <FormControl>
-      <RadioGroup value={selectedValue} onChange={handleRadioChange}>
+      <RadioGroup value={event.selectedValue} onChange={handleRadioChange}>
         {type === "Quiz"
-          ? localAnswers?.map((answer: any, index: number) => (
+          ? event.localAnswers?.map((answer: any, index: number) => (
               <FormControlLabel
                 control={
                   <Radio
@@ -99,7 +101,7 @@ export default function QuizAnswer({
                 label={answer.text}
               />
             ))
-          : localAnswers?.map((answer: any, index: number) => (
+          : event.localAnswers?.map((answer: any, index: number) => (
               <FormControlLabel
                 control={
                   <Radio
@@ -113,7 +115,12 @@ export default function QuizAnswer({
                 }
                 label={
                   <Container
-                    sx={{ mb: 2, border: 1, borderRadius: "10px", boxShadow: 2 }}
+                    sx={{
+                      mb: 2,
+                      border: 1,
+                      borderRadius: "10px",
+                      boxShadow: 2,
+                    }}
                     disableGutters={true}>
                     {formatJSXCode(answer.code)}
                   </Container>
