@@ -6,15 +6,23 @@ import Modal from "../components/SandBox/Modal";
 import "./SandBox.css";
 
 function SandBox() {
-
-const [event, updateEvent] = useReducer(
-  (prev: any, next: any) => {
-    const newEvent = { ...prev, ...next };
-    console.log("newEvent", newEvent);
-    return newEvent;
-  },
-  { html: "", css: "", js: "", srcInfo: "", open: false, metaCdnLines : [""] , cssCdnLines : [""] , jsCdnLines : [""]}
-);
+  const [event, updateEvent] = useReducer(
+    (prev: any, next: any) => {
+      const newEvent = { ...prev, ...next };
+      console.log("newEvent-sandbox", newEvent);
+      return newEvent;
+    },
+    {
+      html: "",
+      css: "",
+      js: "",
+      srcInfo: "",
+      open: false,
+      metaCdnLines: [""],
+      cssCdnLines: [""],
+      jsCdnLines: [""],
+    }
+  );
 
   // const [cssCdnLines, setCssCdnLines] = useState<string[]>([""]);
   // const [jsCdnLines, setJsCdnLines] = useState<string[]>([""]);
@@ -29,20 +37,21 @@ const [event, updateEvent] = useReducer(
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-const updateIframe = () => {
-  const cssCdnLinks = event.cssCdnLines
-    .map((line: any) => `<link rel="stylesheet" href="${line}" />`)
-    .join("");
-  const jsCdLinks = event.jsCdnLines
-    .map((line: any) => `<script src="${line}"></script>`)
-    .join("");
-  console.log(event.metaCdnLines);
-  const htmlDocument = `
+  const updateIframe = () => {
+    const cssCdnLinks = event.cssCdnLines
+      .map((line: any) => `<link rel="stylesheet" href="${line}"/>`)
+      .join("");
+    const jsCdLinks = event.jsCdnLines
+      .map((line: any) => `<script src="${line}"></script>`)
+      .join("");
+      const metaCdnLinks = event.metaCdnLines.map((line:any)=>`${line}`)
+    console.log(event.metaCdnLines);
+    const htmlDocument = `
     <html lang="en" class="">
       <head>
         <title>temp document</title>
         <meta charset="UTF-8">
-        ${event.metaCdnLines}
+        ${metaCdnLinks}
         ${cssCdnLinks}
         <style>${event.css}</style>
       </head>
@@ -53,14 +62,22 @@ const updateIframe = () => {
       ${jsCdLinks}
     </html>
   `;
-  if (iframeRef.current) {
-    iframeRef.current.srcdoc = htmlDocument;
-  }
-};
+    if (iframeRef.current) {
+      iframeRef.current.srcdoc = htmlDocument;
+    }
+  };
 
-useEffect(() => {
-  updateIframe();
-}, [event.cssCdnLines, event.html, event.css, event.jsCdnLines, event.js, iframeRef, event.metaCdnLines]);
+  useEffect(() => {
+    updateIframe();
+  }, [
+    event.cssCdnLines,
+    event.html,
+    event.css,
+    event.jsCdnLines,
+    event.js,
+    iframeRef,
+    event.metaCdnLines,
+  ]);
 
   function myIframeLoad() {
     //execute link inside iframe
@@ -80,9 +97,9 @@ useEffect(() => {
             console.log(hash);
             iframe.contentWindow.location.hash = "#" + hash;
           } else {
-            //Save the link in State to update the iframe in myFrame 
+            //Save the link in State to update the iframe in myFrame
             if (href.startsWith("http://") || href.startsWith("https://")) {
-              updateEvent({srcInfo: href});
+              updateEvent({ srcInfo: href });
             }
           }
         });
@@ -127,21 +144,20 @@ useEffect(() => {
     }
   };
 
-    const handleUpdateCdnLines = (
-      metaLinesFromParent: string[],
-      cssLinesFromParent: string[],
-      jsLinesFromParent: string[]
-    ) => {
-      updateEvent({metaCdnLines :metaLinesFromParent});
-      updateEvent({cssCdnLines :cssLinesFromParent});
-      updateEvent({ jsCdnLines: jsLinesFromParent });
-//remove the link from the iframe when update happen
-      updateEvent({srcInfo:""});
-    };
-
+  const handleUpdateCdnLines = (
+    metaLinesFromParent: string[],
+    cssLinesFromParent: string[],
+    jsLinesFromParent: string[]
+  ) => {
+    updateEvent({ metaCdnLines: metaLinesFromParent });
+    updateEvent({ cssCdnLines: cssLinesFromParent });
+    updateEvent({ jsCdnLines: jsLinesFromParent });
+    //remove the link from the iframe when update happen
+    updateEvent({ srcInfo: "" });
+  };
 
   const handleClickOpen = () => {
-    updateEvent({open:true});
+    updateEvent({ open: true });
   };
 
   const handleClose = () => {
@@ -151,16 +167,16 @@ useEffect(() => {
   const handleSetValue = (data: any, type: string) => {
     switch (type) {
       case "html":
-        updateEvent({html:data});
-        updateEvent({srcInfo:""});
+        updateEvent({ html: data });
+        updateEvent({ srcInfo: "" });
         break;
       case "css":
-        updateEvent({css:data});
-        updateEvent({srcInfo:""});
+        updateEvent({ css: data });
+        updateEvent({ srcInfo: "" });
         break;
       case "js":
-        updateEvent({js:data});
-        updateEvent({srcInfo:""});
+        updateEvent({ js: data });
+        updateEvent({ srcInfo: "" });
         break;
     }
   };
@@ -208,7 +224,7 @@ useEffect(() => {
                   cssLinesFromParent={event.cssCdnLines}
                   jsLinesFromParent={event.jsCdnLines}
                   onUpdateCdnLines={handleUpdateCdnLines}
-                  onChange={(value:any) => updateEvent({open:value})}
+                  onChange={(value: any) => updateEvent({ open: value })}
                 />
               </Dialog>
             </Grid>

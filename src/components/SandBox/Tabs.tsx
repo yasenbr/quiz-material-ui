@@ -87,6 +87,8 @@ export default function VerticalTabs(props: VerticalTabsProps) {
     index: number,
     type: string
   ) => {
+    console.log("e.target.value", e.target.value);
+    
     const newLinesUpdate = [...lineUpdate];
     newLinesUpdate[index] = e.target.value;
     switch (type) {
