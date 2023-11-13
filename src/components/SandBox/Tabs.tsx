@@ -66,20 +66,13 @@ export default function VerticalTabs(props: VerticalTabsProps) {
   const [metaLines, setMetaLines] = useState<string[]>(initialMetaLines);
   const [cssLines, setCssLines] = useState<string[]>(initialCssLines);
   const [jsLines, setJsLines] = useState<string[]>(initialJsLines);
-  const [lines, setLines] = useState<string[]>([]);
+  // const [lines, setLines] = useState<string[]>([]);
 
   // const whiteTextStyle = {
   //   color: "white",
   // };
 
-  const {
-    metaLines: metaLinesFromParent,
-    cssLines: cssLinesFromParent,
-    jsLines: jsLinesFromParent,
-    onUpdateLines,
-  } = props;
-
- 
+  const {onUpdateLines} = props;
 
   const handleUpdate = (
     e: { target: { value: any } },
@@ -88,21 +81,21 @@ export default function VerticalTabs(props: VerticalTabsProps) {
     type: string
   ) => {
     console.log("e.target.value", e.target.value);
-    
+
     const newLinesUpdate = [...lineUpdate];
     newLinesUpdate[index] = e.target.value;
     switch (type) {
       case "meta":
         setMetaLines(newLinesUpdate);
-        onUpdateLines(newLinesUpdate, jsLinesFromParent, cssLinesFromParent);
+        onUpdateLines(newLinesUpdate, cssLines, jsLines);
         break;
       case "css":
         setCssLines(newLinesUpdate);
-        onUpdateLines(metaLinesFromParent, newLinesUpdate, jsLinesFromParent);
+        onUpdateLines(metaLines, newLinesUpdate, jsLines);
         break;
       case "js":
         setJsLines(newLinesUpdate);
-        onUpdateLines(metaLinesFromParent, cssLinesFromParent, newLinesUpdate);
+        onUpdateLines(metaLines, cssLines, newLinesUpdate);
         break;
       default:
         break;
