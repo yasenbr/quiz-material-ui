@@ -24,16 +24,6 @@ function SandBox() {
     }
   );
 
-  // const [cssCdnLines, setCssCdnLines] = useState<string[]>([""]);
-  // const [jsCdnLines, setJsCdnLines] = useState<string[]>([""]);
-  // const [metaCdnLines, setMetaCdnLines] = useState<string[]>([""]);
-  // const [open, setOpen] = useState(false);
-  // const [html, setHtml] = useState("");
-  // const [css, setCss] = useState("");
-  // const [js, setJs] = useState("");
-  // const [srcInfo, setSrcInfo] = useState("");
-  // const [PreviousIframeRef, setPreviousIframeRef] =
-  //   useState<HTMLIFrameElement | null>(null);
 
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
