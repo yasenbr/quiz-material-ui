@@ -6,11 +6,7 @@ import Button from "@mui/material/Button";
 import { DialogActions } from "@mui/material";
 import { useReducer} from "react";
 
-// const [open, setOpen] = useState(false);
 
-// interface ModalProps {
-//   onChange: (value: boolean) => void;
-// }
 
 function Modal(props: any) {
   const {
@@ -34,11 +30,7 @@ function Modal(props: any) {
     }
   );
 
-  // const [cssLinesFromParent, setCssLinesFromParent] = useState<string[]>([""]);
-  // const [jsLinesFromParent, setJsLinesFromParent] = useState<string[]>([""]);
-  // const [metaLinesFromParent, setMetaLinesFromParent] = useState<string[]>([
-  //   "",
-  // ]);
+  
 
   // Define a function to update the CSS and JS lines from the parent component
   const handleUpdateLines = (
@@ -46,9 +38,6 @@ function Modal(props: any) {
     cssLines: string[],
     jsLines: string[]
   ) => {
-    // console.log("metaLines", metaLines);
-    // console.log("cssLines", cssLines);
-    // console.log("jsLines", jsLines);
     updateEvent({ metaLinesFromParent: metaLines });
     updateEvent({cssLinesFromParent :cssLines});
     updateEvent({jsLinesFromParent :jsLines});

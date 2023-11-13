@@ -62,11 +62,6 @@ export default function VerticalTabs(props: VerticalTabsProps) {
   const initialMetaLines = props.onClick.metaCdnLines;
   const initialCssLines = props.onClick.cssCdnLines;
   const initialJsLines = props.onClick.jsCdnLines;
-  // const [value, setValue] = useState(0);
-  // const [metaLines, setMetaLines] = useState<string[]>(initialMetaLines);
-  // const [cssLines, setCssLines] = useState<string[]>(initialCssLines);
-  // const [jsLines, setJsLines] = useState<string[]>(initialJsLines);
-  // const [lines, setLines] = useState<string[]>([]);
 
   const [event, updateEvent] = useReducer(
     (prev: any, next: any) => {
