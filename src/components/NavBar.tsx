@@ -1,8 +1,8 @@
-import { AppBar, Toolbar, Typography, IconButton, Button } from "@mui/material";
+import { AppBar, Toolbar, Typography, IconButton} from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPowerOff, faCircle } from "@fortawesome/free-solid-svg-icons";
+import { faPowerOff} from "@fortawesome/free-solid-svg-icons";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import "./NavBar.css";
@@ -51,13 +51,13 @@ function NavBar({ login, themeColor, mouseTrack }: Props) {
             {label}
           </Link>
         </Typography>
-        {mouseTrack ? (
+        {/* {mouseTrack ? (
           <IconButton sx={{ color: "red" }}>
             <FontAwesomeIcon icon={faCircle} />
           </IconButton>
         ) : (
           ""
-        )}
+        )} */}
         <Link
           to="/code"
           style={{
@@ -77,13 +77,23 @@ function NavBar({ login, themeColor, mouseTrack }: Props) {
           SandBox
         </Link>
         <Box>
-          <IconButton onClick={handleTheme}>
-            {themeColor === "dark" ? (
-              <Brightness7Icon />
-            ) : (
-              <Brightness4Icon sx={{ color: "#fff" }} />
-            )}
-          </IconButton>
+          {mouseTrack ? (
+            <IconButton onClick={handleTheme}>
+              {themeColor === "dark" ? (
+                <Brightness7Icon sx={{color:"red"}} />
+              ) : (
+                <Brightness4Icon sx={{ color:"red" }} />
+              )}
+            </IconButton>
+          ) : (
+            <IconButton onClick={handleTheme}>
+              {themeColor === "dark" ? (
+                <Brightness7Icon />
+              ) : (
+                <Brightness4Icon sx={{ color: "#fff" }} />
+              )}
+            </IconButton>
+          )}
         </Box>
         <div>
           {login ? (

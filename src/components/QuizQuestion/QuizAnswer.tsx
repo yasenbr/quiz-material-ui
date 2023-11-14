@@ -39,7 +39,7 @@ export default function QuizAnswer({
         value={formattedCode}
         height="100px"
         width="400px"
-        style={{ backgroundColor: "#2c3440" }}
+        style={{ backgroundColor: "red" }}
         extensions={[javascript({ jsx: true })]}
       />
     );

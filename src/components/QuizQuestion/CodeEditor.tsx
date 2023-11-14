@@ -135,6 +135,7 @@ function CodeEditor(taskProps: any) {
         sx={{
           display: "grid",
           gridTemplateColumns: "repeat(3, 1fr)",
+          gap: 1/2,
         }}>
         <Item
           sx={{
