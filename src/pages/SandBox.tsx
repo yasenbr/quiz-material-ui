@@ -133,7 +133,7 @@ function SandBox() {
       );
     }
   };
-
+// if nay update is received from the modal then update the iframe
   const handleUpdateCdnLines = (
     metaLinesFromParent: string[],
     cssLinesFromParent: string[],
@@ -145,7 +145,7 @@ function SandBox() {
     //remove the link from the iframe when update happen
     updateEvent({ srcInfo: "" });
   };
-
+//opren and close the modal
   const handleClickOpen = () => {
     updateEvent({ open: true });
   };
@@ -153,7 +153,7 @@ function SandBox() {
   const handleClose = () => {
     updateEvent({ open: false });
   };
-
+//set the value of the editor for html,css and js
   const handleSetValue = (data: any, type: string) => {
     switch (type) {
       case "html":

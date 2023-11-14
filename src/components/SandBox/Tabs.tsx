@@ -63,6 +63,8 @@ export default function VerticalTabs(props: VerticalTabsProps) {
   const initialCssLines = props.onClick.cssCdnLines;
   const initialJsLines = props.onClick.jsCdnLines;
 
+  //state management
+
   const [event, updateEvent] = useReducer(
     (prev: any, next: any) => {
       const newEvent = { ...prev, ...next };
@@ -80,6 +82,11 @@ export default function VerticalTabs(props: VerticalTabsProps) {
   // const whiteTextStyle = {
   //   color: "white",
   // };
+
+  //manage update lines from child component
+  //if update happen we send the updated line by pushing it to the corresponding parent component and we 
+  //update the state of the child component to reflect the change
+  //for the non updated lines we just send the old lines to the parent component
 
   const { onUpdateLines } = props;
 
@@ -116,6 +123,8 @@ export default function VerticalTabs(props: VerticalTabsProps) {
     updateEvent({ value: newValue });
   };
 
+
+  //manage add and remove lines in the modal
   const handleAddLine = (type: string, updateEvent: (value: any) => void) => {
     switch (type) {
       case "meta":
