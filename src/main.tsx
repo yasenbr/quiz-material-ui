@@ -56,7 +56,7 @@ const darkMode = createTheme({
 function Main() {
   const [mode, setMode] = useState("light");
   const [mouseTrack, setMouseTrack] = useState(false);
-
+/** useEffect is used to manage the color change button  */
    useEffect(() => {
      const handleNewDataEvent = () => {
        console.log("storage changed", localStorage.getItem("themeColor"));

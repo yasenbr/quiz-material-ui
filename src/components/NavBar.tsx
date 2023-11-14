@@ -28,14 +28,14 @@ function NavBar({ login, themeColor, mouseTrack }: Props) {
     };
 
     const handleTheme = () => {
-      console.log("color", themeColor);
+      // console.log("color", themeColor);
       const newTheme = themeColor === "dark" ? "light" : "dark";
-      console.log("newTheme", newTheme);
+      // console.log("newTheme", newTheme);
       localStorage.setItem("themeColor", newTheme);
       window.dispatchEvent(new Event("NewDataEvent"));
     };
 
-    console.log("mouseTrack->", mouseTrack);
+    // console.log("mouseTrack->", mouseTrack);
 
     return (
       <Toolbar>

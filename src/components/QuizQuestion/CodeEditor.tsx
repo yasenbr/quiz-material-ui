@@ -29,6 +29,8 @@ function Item(props: BoxProps) {
   );
 }
 
+// Function to extract error information from the response
+//note that error return by node are not  error because node return  something  that way we need to look for ky word in the return message
 function extractErrorInfo(res: any) {
   if (res.message.includes("ReferenceError:") || res.message.includes("TypeError:")|| res.message.includes("SyntaxError:")) {
     const lines = res.message.split("\n");
@@ -71,6 +73,7 @@ const files: any = {
     language: "javascript",
   },
 };
+
 function CodeEditor(taskProps: any) {
   console.log("taskProps", taskProps);
 

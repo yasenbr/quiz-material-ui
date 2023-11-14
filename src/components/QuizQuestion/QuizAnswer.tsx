@@ -54,6 +54,7 @@ export default function QuizAnswer({
   console.log("selectedValue", event.selectedValue);
 
   function optionClicked(isCorrect: boolean, answerIndex: number) {
+    // update localAnswers to reflect which answer is selected
     const updatedAnswers = event.localAnswers.map(
       (answer: any, index: number) => {
         if (index === answerIndex) {
@@ -64,7 +65,7 @@ export default function QuizAnswer({
       }
     );
     updateEvent({ localAnswers: updatedAnswers });
-
+// invoke dispatch to update score
     if (isCorrect) {
       if (event.localAnswers[answerIndex].isSelected) {
         return;
