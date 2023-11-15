@@ -1,0 +1,141 @@
+This app is meant for interview purposes.
+1. Structure:
+Src:
+            -api
+            -assets
+            -components
+            -middleware
+            -pages
+            -redux
+- In src we have all the above folders and the main.tsx file and App.tsx with corresponding css file.
+- In pages, we have the main page. In our case, the pages are:
+•	Login.tsx
+•	Quiz.tsx
+•	Result.tsx
+•	Code.tsx
+•	SandBox.tsx
+And the css file for each file.
+- The middleware folder is for the call (fetch) to the API for the Q&A data in JSON format.
+- In the API folder, we have two files to help us communicate with the server for code execution for the Code Editor section.
+- The Redux folder contains the scoreReducer.tsx used to count the result.
+- In the Component folder, we have different components regrouped by categories. For example:
+•	QuizQuestion folder
+•	SandBox
+And the component navbar and footer.
+2. In Main.tsx, we have the:
+ThemeProvider, which is used to provide the theme to use. As default, there is “light” which is provided by MUI theme. For the dark theme, we used createTheme provided by MUI:
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+From line 9 to 54 is the part for theme creation in which you will find preset attributes to apply when the dark theme is used.
+In the function main, we have:
+
+handleNewDataEvent, which we use to read the value of the theme color stored in localStorage.
+Mouse event to track mouse leave and enter in the browser.
+Const theme function is used to provide the right value depending on the button click on the navbar icon for color change.
+
+3. In App.tsx, we have:
+All the routing.
+Login state management (dummy function to bypass the login when clicking on the last right icon on the navbar) to be removed when auth is implemented 😊.
+We pass the themeColor value and mouseTrack to the navbar.
+
+4. In navbar, we have:
+The navbar used is from MUI. We have two functions:
+NavBar, which calls appBarLabel and passes to it the label to use like a logo.
+In appBarLabel, we handle the login, theme change, and mouse track. For the mouse track and theme color change, we use the same icons:
+<Box>
+                    {mouseTrack ? (
+                        <IconButton onClick={handleTheme}>
+                            {themeColor === "dark" ? (
+                                <Brightness7Icon sx={{color:"red"}} />
+                            ) : (
+                                <Brightness4Icon sx={{ color:"red" }} />
+                            )}
+                        </IconButton>
+                    ) : (
+                        <IconButton onClick={handleTheme}>
+                            {themeColor === "dark" ? (
+                                <Brightness7Icon />
+                            ) : (
+                                <Brightness4Icon sx={{ color: "#fff" }} />
+                            )}
+                        </IconButton>
+                    )}
+                </Box>
+Note: When using tags imported from MUI, the styling can be applied in the imported CSS file or use the sx annotation and set the style in it like so:
+sx={{
+                                borderRadius: "10%",
+                                width: "50px",
+                            }}>
+
+For more information, read the documentation in MUI.
+5. Quiz Page:
+We import the data from the api.tsx middleware and pass it to the QuizQuestion component.
+We also import the state initialize from the score reducer to initialize the score to 0.
+We use navigate to on handleResultClick to navigate to the result page after clicking on the finish quiz button.
+
+6. QuizQuestion Component:
+We map the data provided from the Quiz page and display the question and pass the answer to QuizAnswer component to be able to filter the Answer type and format their display.
+
+7. QuizAnswer component:
+We invoke the dispatch decrement and increment from scoreReducer to calculate the score.
+To manage the state of the initialAnswer, selectedTrueAnswer, and SelectedValue, instead of useState, we used useReducer for better state management and reducing the state declaration.
+const [event, updateEvent] = useReducer(
+        (prev: any, next: any) => {
+            const newEvent = { ...prev, ...next };
+            console.log("newEvent", newEvent);
+            return newEvent;
+        },
+        { localAnswers: initialAnswers, selectedTrueAnswer: false , selectedValue: ""}
+    );
+
+For the code formatting used in questions where we have a bit of code for an answer, we use the function below to format the code so it is more readable:
+function formatJSXCode(jsxString: string) {
+        jsxString = jsxString.replace(/^"|"$/g, "");
+        const lines = jsxString.split("\n");
+        const trimmedLines = lines.map((line) => line.trim());
+        const formattedCode = trimmedLines.join("\n  ");
+
+        return (
+            <CodeMirror
+                value={formattedCode}
+                height="100px"
+                width="400px"
+                style={{ backgroundColor: "red" }}
+                extensions={[javascript({ jsx: true })]}
+            />
+        );
+    }
+In the returned HTML, we map the answer by type and display the result formatted depending on that type.
+
+8. Code.tsx page:
+We display a code editor. For this purpose, we use Monaco Editor to display the code and Node for execution of the code.
+We map through the provided data, and if the type is correct, we send the question to the CodeEditor component to be processed.
+
+9. In CodeEditor.tsx component, we display the code editor. It has three columns. On the first, we display the question. The second one is the code editor itself, and the third screen is a display screen where we display the result of the execution of the code by Node.js.
+The function Item is used to set the attribute of the Box. For more information, see the documentation in MUI.
+The function extractErrorInfo is used to extract the error return by Node.js because it is not an error but a return value with an error message in it. So we modify the output and simplify the display value with it.
+With handleRun function, we call the CompilerApi to run the code in the editor and return the result.
+
+10. SandBox page:
+Like its name says, we display the sandbox. In this page, we have:
+useReducer to manage the state of HTML, CSS, JS, and link passed that will be used and displayed in the sandbox.
+updateIframe function is used to construct the HTML document to display in the iframe. The updateIframe function is called in useEffect to manage the asynchronous data.
+Because we can have links in the HTML displayed in the iframe, we use the myFrameLoad function to manage the external link and the inside link like: “#about” that needs to scroll the page in the iframe.
+In myFrame function, we verify if the data that is received is different from empty. If not, we display the extra link stored in srcInfo. Else, we display the code present in the sandbox.
+
+handleUpdateCdnLines function is used to update the link that can be received when we submit the setting in the modal.
+A function for handling the value of the HTML, CSS, and JS present at line 157.
+
+11. Modal.tsx is used to display the CSS, JS external link, and meta tag if present. In this component, we import the Tabs.tsx component that supplies us with the value and back.
+We manage the submit and close button of the modal.
+
+12. Tabs.tsx component:
+We have the possibility to add CSS, JS external link, and meta tag.
+To do so, we manage the state of the displayed link and we update it.
+For this, we use handleUpdate at line 93.
+For adding a line, a function at line 128 is used with a switch to cover the cases.
+For removing a line at line 147, a handleRemoveLine function is used with switch cases.
+
+
+For the server side refer  to this documentation:
+https://jojozhuang.github.io/tutorial/building-online-code-editor-with-react-and-express/

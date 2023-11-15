@@ -1,4 +1,5 @@
 import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
+import Chip from "@mui/material/Chip";
 import { Link, useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -38,7 +39,7 @@ function NavBar({ login, themeColor, mouseTrack }: Props) {
     // console.log("mouseTrack->", mouseTrack);
 
     return (
-      <Toolbar >
+      <Toolbar>
         <IconButton
           edge="start"
           color="inherit"
@@ -78,19 +79,47 @@ function NavBar({ login, themeColor, mouseTrack }: Props) {
         </Link>
         <Box>
           {mouseTrack ? (
-            <IconButton onClick={handleTheme}>
+            <IconButton
+              onClick={handleTheme}
+              sx={{
+                "&:hover": {
+                  background: "rgba(0, 0, 0, 0)",
+                },
+              }}>
               {themeColor === "dark" ? (
-                <Brightness7Icon sx={{ color: "red" }} />
+                <Chip
+                  icon={<Brightness7Icon />}
+                  label="Dark"
+                  sx={{ "& .MuiChip-icon": { color: "red" } }}
+                />
               ) : (
-                <Brightness4Icon sx={{ color: "red" }} />
+                <Chip
+                  icon={<Brightness4Icon />}
+                  label="light"
+                  sx={{ color: "white", "& .MuiChip-icon": { color: "red" } }}
+                />
               )}
             </IconButton>
           ) : (
-            <IconButton onClick={handleTheme}>
+            <IconButton
+              onClick={handleTheme}
+              sx={{
+                "&:hover": {
+                  background: "rgba(0, 0, 0, 0)",
+                },
+              }}>
               {themeColor === "dark" ? (
-                <Brightness7Icon />
+                <Chip
+                  icon={<Brightness7Icon />}
+                  label="Dark"
+                  sx={{ color: "white" }}
+                />
               ) : (
-                <Brightness4Icon sx={{ color: "#fff" }} />
+                <Chip
+                  icon={<Brightness4Icon />}
+                  label="light"
+                  sx={{ color: "white", "& .MuiChip-icon": { color: "white" } }}
+                />
               )}
             </IconButton>
           )}
@@ -123,7 +152,7 @@ function NavBar({ login, themeColor, mouseTrack }: Props) {
   }
   return (
     <div>
-      <AppBar position="fixed" color="primary" >
+      <AppBar position="fixed" color="primary">
         {appBarLabel("Evaluation Module")}
       </AppBar>
     </div>

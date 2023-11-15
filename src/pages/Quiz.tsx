@@ -38,8 +38,7 @@ function Quiz() {
                 <Button
                   type="button"
                   variant="contained"
-                  onClick={handleResultClick}
-                  sx={{ backgroundColor: "#2c3440" }}>
+                  onClick={handleResultClick}>
                   Finish quiz
                 </Button>
               </Container>
