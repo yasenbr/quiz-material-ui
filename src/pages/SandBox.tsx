@@ -24,7 +24,6 @@ function SandBox() {
     }
   );
 
-
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
   const updateIframe = () => {
@@ -34,7 +33,7 @@ function SandBox() {
     const jsCdLinks = event.jsCdnLines
       .map((line: any) => `<script src="${line}"></script>`)
       .join("");
-      const metaCdnLinks = event.metaCdnLines.map((line:any)=>`${line}`)
+    const metaCdnLinks = event.metaCdnLines.map((line: any) => `${line}`);
     console.log(event.metaCdnLines);
     const htmlDocument = `
     <html lang="en" class="">
@@ -133,7 +132,7 @@ function SandBox() {
       );
     }
   };
-// if nay update is received from the modal then update the iframe
+  // if nay update is received from the modal then update the iframe
   const handleUpdateCdnLines = (
     metaLinesFromParent: string[],
     cssLinesFromParent: string[],
@@ -145,7 +144,7 @@ function SandBox() {
     //remove the link from the iframe when update happen
     updateEvent({ srcInfo: "" });
   };
-//opren and close the modal
+  //opren and close the modal
   const handleClickOpen = () => {
     updateEvent({ open: true });
   };
@@ -153,7 +152,7 @@ function SandBox() {
   const handleClose = () => {
     updateEvent({ open: false });
   };
-//set the value of the editor for html,css and js
+  //set the value of the editor for html,css and js
   const handleSetValue = (data: any, type: string) => {
     switch (type) {
       case "html":
@@ -173,7 +172,7 @@ function SandBox() {
 
   return (
     <div style={{ height: "100vh" }}>
-      <div className="top-panel">
+      <div className="top-panel" id="back-to-top-anchor">
         <Grid
           container
           sx={{

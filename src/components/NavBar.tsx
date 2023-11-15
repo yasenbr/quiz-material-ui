@@ -39,7 +39,7 @@ function NavBar({ login, themeColor, mouseTrack }: Props) {
     // console.log("mouseTrack->", mouseTrack);
 
     return (
-      <Toolbar>
+      <Toolbar >
         <IconButton
           edge="start"
           color="inherit"

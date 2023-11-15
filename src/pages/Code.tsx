@@ -14,7 +14,7 @@ function Code() {
   return (
     <>
       <div style={{ height: "10vh"}}>
-        <Container maxWidth="sm">
+        <Container maxWidth="sm" id="back-to-top-anchor">
           <Box sx={{ pt: "3rem"}}>
             <h3 className="tq-title-code ">Code Test</h3>
           </Box>

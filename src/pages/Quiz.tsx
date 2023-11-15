@@ -23,7 +23,7 @@ function Quiz() {
     <>
       <div>
         <div>
-          <Container maxWidth="sm">
+          <Container maxWidth="sm" id="back-to-top-anchor">
             <Box sx={{ pt: "5rem", mb: "5rem" }}>
               <h3 className="tq-title">Quiz Module</h3>
             </Box>
