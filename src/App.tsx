@@ -40,7 +40,7 @@ function App({themeColor, mouseTrack}: Props) {
 
   return (
     <>
-      <div style={{ backgroundColor: "", height: "100vh" }}>
+      <div >
         <Provider store={store}>
           <ThemeProvider theme={theme}>
             <CssBaseline />
@@ -51,13 +51,15 @@ function App({themeColor, mouseTrack}: Props) {
             />
             {isLoggedIn ? (
               <>
-                <Routes>
-                  <Route path="/" element={<Quiz />} />
-                  <Route path="/code" element={<Code />} />
-                  <Route path="/sandbox" element={<SandBox />} />
-                  <Route path="/result" element={<Result />} />
-                </Routes>
-                <Footer />
+                <div style={{marginTop:"80px"}}>
+                  <Routes>
+                    <Route path="/" element={<Quiz />} />
+                    <Route path="/code" element={<Code />} />
+                    <Route path="/sandbox" element={<SandBox />} />
+                    <Route path="/result" element={<Result />} />
+                  </Routes>
+                  <Footer />
+                </div>
               </>
             ) : (
               <>

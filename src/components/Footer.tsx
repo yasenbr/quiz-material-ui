@@ -1,5 +1,4 @@
 import { AppBar, Toolbar, Typography, IconButton } from "@mui/material";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Link } from "react-router-dom";
 import "./NavBar.css";
 
@@ -24,7 +23,7 @@ function Footer() {
   }
   return (
     <div>
-        <AppBar position="static" color="primary">
+        <AppBar position="static" color="primary" >
           {appBarLabel("Evaluation Module Footer")}
         </AppBar>
     </div>

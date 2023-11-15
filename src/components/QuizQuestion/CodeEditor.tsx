@@ -5,6 +5,8 @@ import { Typography } from "@mui/material";
 import CompilerApi from "../../api/CompilerApi";
 import Box, { BoxProps } from "@mui/material/Box";
 
+
+// Function to create a box for the output screen and set its properties
 function Item(props: BoxProps) {
   const { sx, ...other } = props;
   return (
@@ -92,6 +94,8 @@ function CodeEditor(taskProps: any) {
 
   console.log("title", info);
 
+  // Function to get the task from the server
+
   useEffect(() => {
     CompilerApi.getTask("javascript").then((res) => {
       console.log(res);
@@ -101,9 +105,13 @@ function CodeEditor(taskProps: any) {
 
   console.log("task", task);
 
+  // Function to handle the editor
+
   function handleEditorDidMount(editor: any, _monaco: any) {
     editorRef.current = editor;
   }
+
+  // Function to handle the run button
 
   const handleRun = (e: any) => {
     e.preventDefault();
