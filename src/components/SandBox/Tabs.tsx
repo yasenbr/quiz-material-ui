@@ -42,7 +42,13 @@ function TabPanel(props: TabPanelProps) {
       aria-labelledby={`vertical-tab-${index}`}
       {...other}>
       {value === index && (
-        <Box sx={{ p: 3 }}>
+        <Box
+          sx={{
+            "& .MuiTextField-root": {
+              backgroundColor: "transparent",
+            },
+            p:3
+          }}>
           <Typography>{children}</Typography>
         </Box>
       )}
@@ -84,7 +90,7 @@ export default function VerticalTabs(props: VerticalTabsProps) {
   // };
 
   //manage update lines from child component
-  //if update happen we send the updated line by pushing it to the corresponding parent component and we 
+  //if update happen we send the updated line by pushing it to the corresponding parent component and we
   //update the state of the child component to reflect the change
   //for the non updated lines we just send the old lines to the parent component
 
@@ -122,7 +128,6 @@ export default function VerticalTabs(props: VerticalTabsProps) {
     event.preventDefault();
     updateEvent({ value: newValue });
   };
-
 
   //manage add and remove lines in the modal
   const handleAddLine = (type: string, updateEvent: (value: any) => void) => {
@@ -179,7 +184,7 @@ export default function VerticalTabs(props: VerticalTabsProps) {
   };
   const handleAddMetaClick = () => {
     // Create a copy of the current meta lines and add a new line
-    handleAddLine("meta",updateEvent);
+    handleAddLine("meta", updateEvent);
   };
   const handleAddCssClick = () => {
     // Create a copy of the current CSS lines and add a new line
@@ -222,7 +227,7 @@ export default function VerticalTabs(props: VerticalTabsProps) {
       </Tabs>
       <TabPanel value={event.value} index={0}>
         <Typography>Add meta tag to be added in the header</Typography>
-        {event.metaLines.map((line:any, index:any) => (
+        {event.metaLines.map((line: any, index: any) => (
           <div key={index} style={{ display: "flex" }}>
             <TextField
               autoFocus
@@ -234,6 +239,7 @@ export default function VerticalTabs(props: VerticalTabsProps) {
               fullWidth
               variant="standard"
               onChange={(e) => handleUpdate(e, event.metaLines, index, "meta")}
+              
             />
             <HighlightOffIcon
               onClick={() => handleRemoveMetaLine(index)}
@@ -255,7 +261,7 @@ export default function VerticalTabs(props: VerticalTabsProps) {
           order, and before the CSS in the editor. You can use the CSS from
           another Pen by using its URL and the proper URL extension.
         </Typography>
-        {event.cssLines.map((line:any, index:any) => (
+        {event.cssLines.map((line: any, index: any) => (
           <div key={index} style={{ display: "flex" }}>
             <TextField
               autoFocus={index === event.cssLines.length - 1}
@@ -290,7 +296,7 @@ export default function VerticalTabs(props: VerticalTabsProps) {
           URL of any other Pen, and it will include the JavaScript from that
           Pen.
         </Typography>
-        {event.jsLines.map((line:any, index:any) => (
+        {event.jsLines.map((line: any, index: any) => (
           <div key={index} style={{ display: "flex" }}>
             <TextField
               key={index}

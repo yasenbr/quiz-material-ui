@@ -39,7 +39,6 @@ const store = configureStore({
 type Track = {
   themeColor: any;
   mouseTrack: boolean;
-  
 };
 
 
@@ -70,7 +69,6 @@ function App({ themeColor, mouseTrack }: Track, props: Props) {
 
       if (anchor) {
         console.log("anchor->", anchor);
-        
         anchor.scrollIntoView({
           block: "center",
         });

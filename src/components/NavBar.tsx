@@ -89,13 +89,13 @@ function NavBar({ login, themeColor, mouseTrack }: Props) {
               {themeColor === "dark" ? (
                 <Chip
                   icon={<Brightness7Icon />}
-                  label="Dark"
+                  label="Light"
                   sx={{ "& .MuiChip-icon": { color: "red" } }}
                 />
               ) : (
                 <Chip
                   icon={<Brightness4Icon />}
-                  label="light"
+                  label="Dark"
                   sx={{ color: "white", "& .MuiChip-icon": { color: "red" } }}
                 />
               )}
@@ -111,13 +111,13 @@ function NavBar({ login, themeColor, mouseTrack }: Props) {
               {themeColor === "dark" ? (
                 <Chip
                   icon={<Brightness7Icon />}
-                  label="Dark"
+                  label="Light"
                   sx={{ color: "white" }}
                 />
               ) : (
                 <Chip
                   icon={<Brightness4Icon />}
-                  label="light"
+                  label="Dark"
                   sx={{ color: "white", "& .MuiChip-icon": { color: "white" } }}
                 />
               )}
