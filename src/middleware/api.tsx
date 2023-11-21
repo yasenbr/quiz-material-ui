@@ -16,9 +16,9 @@ function getQuestions() {
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
-  }, []); // An empty dependency array means this effect runs once when the component mounts
+  }, []); 
 
-  return questions; // Return the fetched data to be used in your component
+  return questions; // 
 }
 
 export { getQuestions };
