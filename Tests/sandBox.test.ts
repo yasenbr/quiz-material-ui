@@ -333,7 +333,7 @@ test("Label test SandBox", async ({ page }) => {
   // Write your test code here
   await page.goto("http://localhost:5173/sandbox");
   const title = await page.title();
-  expect(title).toBe("Vite + React + TS");
+  expect(title).toBe("Evaluation Module");
 
   const htmllable = await page.locator(
     "#back-to-top-anchor > div.MuiGrid-root.MuiGrid-container.css-9obus6-MuiGrid-root > div.MuiGrid-root.MuiGrid-container.css-vogmxi-MuiGrid-root > div:nth-child(1) > div > p"
@@ -356,7 +356,7 @@ test("Functional test SandBox", async ({ page }) => {
   // Write your test code here
   await page.goto("http://localhost:5173/sandbox");
   const title = await page.title();
-  expect(title).toBe("Vite + React + TS");
+  expect(title).toBe("Evaluation Module");
 
   const htmllable = await page.locator(
     "#back-to-top-anchor > div.MuiGrid-root.MuiGrid-container.css-9obus6-MuiGrid-root > div.MuiGrid-root.MuiGrid-container.css-vogmxi-MuiGrid-root > div:nth-child(1) > div > p"
@@ -429,4 +429,9 @@ test("Functional test SandBox", async ({ page }) => {
       `https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css`
     );
   await page.getByRole("button", { name: "Submit" }).click();
+  
+  await page.frameLocator('#myIframe').locator('header').filter({ hasText: 'About Shop' }).click();
+  await page.frameLocator('#myIframe').getByRole('link', { name: 'Shop' }).click();
+  await page.frameLocator('#myIframe').getByRole('link', { name: '' }).click();
+  await page.frameLocator('#myIframe').getByRole('link', { name: 'About' }).click();
 });
