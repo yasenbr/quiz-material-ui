@@ -20,7 +20,7 @@ class CompilerApi {
 
   static run(answer: any) {
     return HttpHelper.fetch(
-      `${URL}/run/`,
+      `${URL}/run`,
       "POST",
       this.requestHeaders(),
       JSON.stringify(answer)
