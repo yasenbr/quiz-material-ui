@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import CodeMirror from "@uiw/react-codemirror";
 import { useDispatch } from "react-redux";
 import { javascript } from "@codemirror/lang-javascript";
@@ -14,10 +14,14 @@ interface QuizAnswerProps {
 }
 
 export default function QuizAnswer({
-  answers: initialAnswers,
+  answers,
   type,
 }: QuizAnswerProps) {
   const dispatch = useDispatch();
+  console.log("initialAnswers", answers);
+  // console.log("answer",answers);
+  
+  
   
   const [event, updateEvent] = useReducer(
     (prev: any, next: any) => {
@@ -25,10 +29,16 @@ export default function QuizAnswer({
       console.log("newEvent", newEvent);
       return newEvent;
     },
-    { localAnswers: initialAnswers, selectedTrueAnswer: false , selectedValue: ""}
+    { localAnswers: answers, selectedTrueAnswer: false , selectedValue: ""}
   );
 
+  useEffect(() => {
+    // Update localAnswers when answers prop changes
+    updateEvent({ localAnswers: answers });
+  }, [answers]);
+
   function formatJSXCode(jsxString: string) {
+    console.log("jsxString", jsxString);
     jsxString = jsxString.replace(/^"|"$/g, "");
     const lines = jsxString.split("\n");
     const trimmedLines = lines.map((line) => line.trim());
@@ -81,7 +91,7 @@ export default function QuizAnswer({
     }
   }
 
-  console.log("event", event);
+  // console.log("event", event);
 
   return (
     <FormControl>
@@ -123,7 +133,7 @@ export default function QuizAnswer({
                       boxShadow: 2,
                     }}
                     disableGutters={true}>
-                    {formatJSXCode(answer.code)}
+                    {formatJSXCode(answer?.code)}
                   </Container>
                 }
               />

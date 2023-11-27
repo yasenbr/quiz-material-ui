@@ -13,9 +13,9 @@ function Code() {
 
   return (
     <>
-      <div style={{ height: "10vh"}}>
+      <div style={{ height: "10vh" }}>
         <Container maxWidth="sm" id="back-to-top-anchor">
-          <Box sx={{ pt: "3rem"}}>
+          <Box sx={{ pt: "3rem" }}>
             <h3 className="tq-title-code ">Code Test</h3>
           </Box>
         </Container>
@@ -23,7 +23,7 @@ function Code() {
       <div
         style={{
           height: "80vh",
-          paddingTop: "5rem"
+          paddingTop: "5rem",
         }}>
         <div>
           <form>
@@ -31,7 +31,7 @@ function Code() {
               {data?.Questions.map((item: any) => (
                 <div>
                   {item.type === "WRcode" ? (
-                    <CodeEditor info={item.problem} />
+                    <CodeEditor info={item.answers} />
                   ) : null}
                 </div>
               ))}

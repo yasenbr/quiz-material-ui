@@ -1,9 +1,12 @@
 import QuizAnswer from "./QuizAnswer";
 import { Container, Typography } from "@mui/material";
 function QuizQuestion(data: any) {
+  const info = data?.data.Questions;
+  console.log("info", info);
+  
   return (
     <div>
-      {data.data?.map((item: any, index: number) => (
+      {info?.map((item: any, index: number) => (
         <div key={index}>
           {item.type === "WRcode" ? null : (
             <Container maxWidth="md">
