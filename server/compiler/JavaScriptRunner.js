@@ -6,9 +6,10 @@ class JavaScriptRunner extends Runner {
     return this.defaultfile;
   }
 
-  constructor() {
+  constructor(id) {
     super();
-    this.defaultfile = "Hello.js";
+    this.id = id;
+    this.defaultfile = "test-"+this.id+".js";
   }
 
   run(file, directory, filename, extension, callback) {

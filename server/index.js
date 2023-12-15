@@ -41,7 +41,7 @@ const path = require("path");
 // Define a route to handle file download
 app.get('/download/:filename', (req, res) => {
   const filename = req.params.filename;
-  const filePath = path.join(__dirname, 'public', filename);
+  const filePath = path.join(__dirname, 'compiler/temp/', filename);
 
   // Use res.download to trigger the browser download
   res.download(filePath, (err) => {
@@ -434,8 +434,9 @@ app.get("/api/file/:lang", (req, res) => {
 
 app.post("/api/run", (req, res) => {
   const file = req.body;
+  console.log("file=>:", file);
   console.log(`file.lang: ${file.lang}`, `file.code:${file.code}`);
-  RunnerManager.run(file.lang, file.code, res);
+  RunnerManager.run(file.lang, file.code,file.id, res);
 });
 
 // WebSocket connection handling

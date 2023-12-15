@@ -4,6 +4,7 @@ import Button from "@mui/material/Button";
 import { Typography } from "@mui/material";
 import CompilerApi from "../../api/CompilerApi";
 import Box, { BoxProps } from "@mui/material/Box";
+import { useAuth } from "../../auth/AuthContext";
 
 
 // Function to create a box for the output screen and set its properties
@@ -77,6 +78,9 @@ const files: any = {
 };
 
 function CodeEditor(taskProps: any) {
+  const { user } = useAuth();
+  console.log("user", user);
+  
   console.log("taskProps", taskProps);
 
   const [info] = taskProps.info;
@@ -84,6 +88,7 @@ function CodeEditor(taskProps: any) {
   const editorRef = useRef(null);
   const file = files[fileName];
   const [task, setTask] = useState({
+    id: user,
     lang: "javascript",
     code: "",
   });
@@ -96,14 +101,14 @@ function CodeEditor(taskProps: any) {
 
   // Function to get the task from the server
 
-  useEffect(() => {
-    CompilerApi.getTask("javascript").then((res) => {
-      console.log(res);
-      setTask(res);
-    });
-  }, []);
+  // useEffect(() => {
+  //   CompilerApi.getTask("javascript").then((res) => {
+  //     console.log(res);
+  //     setTask(res);
+  //   });
+  // }, []);
 
-  console.log("task", task);
+  // console.log("task", task);
 
   // Function to handle the editor
 
@@ -115,6 +120,8 @@ function CodeEditor(taskProps: any) {
 
   const handleRun = (e: any) => {
     e.preventDefault();
+    console.log("task", task);
+    
     CompilerApi.run(task)
       .then((res) => {
         console.log("callback:", res);

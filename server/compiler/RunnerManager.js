@@ -4,13 +4,13 @@ const JavaRunner = require("./JavaRunner");
 const JavaScriptRunner = require("./JavaScriptRunner");
 
 function Factory() {
-  this.createRunner = function createRunner(lang) {
+  this.createRunner = function createRunner(lang, id) {
     let runner;
 
      if (lang === "java") {
       runner = new JavaRunner();
     } else if (lang === "javascript") {
-      runner = new JavaScriptRunner();
+      runner = new JavaScriptRunner(id);
     }
 
     return runner;
@@ -18,9 +18,9 @@ function Factory() {
 }
 
 module.exports = {
-  run(lang, code, res) {
+  run(lang, code,id, res) {
     const factory = new Factory();
-    const runner = factory.createRunner(lang.toLowerCase());
+    const runner = factory.createRunner(lang.toLowerCase(),id);
     // console.log("runner->:",runner);
 
     const directory = path.join(__dirname, "temp");

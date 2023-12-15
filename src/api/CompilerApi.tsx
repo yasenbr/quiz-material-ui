@@ -19,8 +19,10 @@ class CompilerApi {
   }
 
   static run(answer: any) {
+    console.log("answer-compiler", answer);
+    
     return HttpHelper.fetch(
-      `${URL}/run`,
+      `${URL}/api/run`,
       "POST",
       this.requestHeaders(),
       JSON.stringify(answer)
