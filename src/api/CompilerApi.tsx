@@ -1,5 +1,5 @@
 import HttpHelper from "./HttpHelper";
-const URL = import.meta.env.VITE_API_URL;
+const URL = import.meta.env.VITE_QUESTIONS_API_URL;
 
 console.log("env: ", URL);
 
@@ -11,7 +11,7 @@ class CompilerApi {
   static getTask(lang: string) {
     // console.log("ip:", process.env);
     return HttpHelper.fetch(
-      `${URL}/file/${lang}`,
+      `${URL}/api/file/${lang}`,
       "GET",
       this.requestHeaders(),
       null

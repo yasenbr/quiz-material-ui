@@ -239,7 +239,6 @@ export default function VerticalTabs(props: VerticalTabsProps) {
               fullWidth
               variant="standard"
               onChange={(e) => handleUpdate(e, event.metaLines, index, "meta")}
-              
             />
             <HighlightOffIcon
               onClick={() => handleRemoveMetaLine(index)}

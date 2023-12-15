@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPowerOff } from "@fortawesome/free-solid-svg-icons";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
+import { useAuth } from "../auth/AuthContext";
 import "./NavBar.css";
 
 type Props = {
@@ -14,15 +15,16 @@ type Props = {
   mouseTrack: boolean;
 };
 function NavBar({ login, themeColor, mouseTrack }: Props) {
+  const { isLoggedIn, logout, user } = useAuth();
   function appBarLabel(label: string) {
     const navigate = useNavigate();
+    
 
     const HandleLogin = () => {
       if (login) {
-        localStorage.setItem("login", "false");
-        navigate("/login");
+        logout();
+        navigate("/");
       } else {
-        localStorage.setItem("login", "true");
         navigate("/");
       }
       window.location.reload();
@@ -59,24 +61,26 @@ function NavBar({ login, themeColor, mouseTrack }: Props) {
         ) : (
           ""
         )} */}
-        <Link
-          to="/code"
-          style={{
-            color: "#fff",
-            textDecoration: "none",
-            marginRight: "12px",
-          }}>
-          CodeEditor
-        </Link>
-        <Link
-          to="/sandbox"
-          style={{
-            color: "#fff",
-            textDecoration: "none",
-            marginRight: "42px",
-          }}>
-          SandBox
-        </Link>
+        {isLoggedIn ? (
+          <><Link
+            to="/code"
+            style={{
+              color: "#fff",
+              textDecoration: "none",
+              marginRight: "12px",
+            }}>
+            CodeEditor
+          </Link><Link
+            to="/sandbox"
+            style={{
+              color: "#fff",
+              textDecoration: "none",
+              marginRight: "42px",
+            }}>
+              SandBox
+            </Link></>
+        ):(<></>)
+        }
         <Box>
           {mouseTrack ? (
             <IconButton

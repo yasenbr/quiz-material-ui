@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { AuthProvider } from "./auth/AuthContext.tsx";
 
 const darkMode = createTheme({
   palette: {
@@ -104,12 +105,14 @@ function Main() {
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <App themeColor={mode} mouseTrack={mouseTrack}/>
-      </BrowserRouter>
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <BrowserRouter>
+          <App themeColor={mode} mouseTrack={mouseTrack} />
+        </BrowserRouter>
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 

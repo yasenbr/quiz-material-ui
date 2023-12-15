@@ -3,37 +3,67 @@ import QuizQuestion from "../components/QuizQuestion/QuizQuestion";
 import { Box, Container } from "@mui/material";
 import Button from "@mui/material/Button";
 import "./Quiz.css";
-import { useState, useEffect } from "react";
-// import { getQuestions } from "../middleware/api";
 import { initialState } from "../redux/scoreReducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useAuth } from "../auth/AuthContext";
 
-function Quiz() {
+interface auth {
+  data: any;
+}
+
+function Quiz({ data }: auth) {
+  const { user } = useAuth();
+  const [localAnswersArray, setLocalAnswersArray] = useState<any[]>([]);
+  const eventState = useSelector((state: { event: any }) => state.event);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const data = getQuestions();
-  const [data, setData] = useState([]);
+  const serverUrl = "http://localhost:5000";
   dispatch(initialState(0));
 
-  const API_URL = import.meta.env.VITE_SERVER_SIGNAL_API_URL;
-  console.log("API_URL", API_URL);
-  
+  console.log("user", user);
+
+  console.log("eventState", eventState);
 
   useEffect(() => {
-    const socket = new WebSocket(API_URL);
-    console.log("socket", socket);
-     // Adjust the WebSocket URL as needed
+    if (eventState.localAnswers.length !== 0) {
+      console.log("eventState.localAnswers", eventState.localAnswers);
+      setLocalAnswersArray((prevArray: any) => [
+        ...prevArray,
+        { answers: eventState.localAnswers, number: eventState.number },
+      ]);
+    }
+  }, [eventState.localAnswers]);
 
-    // Listen for messages from the server
-    socket.addEventListener("message", (event) => {
-      const newData = JSON.parse(event.data);
-      console.log("Received message from server:", newData);
-      setData(newData);
-    });
-    console.log("data", data);
-  }, []);
+  console.log("localAnswersArray", localAnswersArray);
 
   const handleResultClick = () => {
+    const jsonData = JSON.stringify({ localAnswersArray });
+      console.log("jsonData", jsonData);
+    fetch(serverUrl + "/api/question/" + user, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: jsonData,
+      
+    })
+      .then(
+        (
+          /** @type {{ ok: any; status: any; json: () => any; }} */ response
+        ) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        }
+      )
+      .then((/** @type {any} */ data) => {
+        console.log("JSON data sent successfully - PUT request:", data);
+      })
+      .catch((/** @type {any} */ error) => {
+        console.error("Error sending JSON data:", error);
+      });
     // Navigate to the "Result" page and pass the length of Questions as a state parameter
     navigate("/Result", { state: { data } });
   };
@@ -57,8 +87,7 @@ function Quiz() {
                 <Button
                   type="button"
                   variant="contained"
-                  onClick={handleResultClick}
-                >
+                  onClick={handleResultClick}>
                   Finish quiz
                 </Button>
               </Container>

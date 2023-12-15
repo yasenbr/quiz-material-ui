@@ -1,15 +1,24 @@
 import { Box, Container } from "@mui/material";
 import CodeEditor from "../components/QuizQuestion/CodeEditor";
-import { getQuestions } from "../middleware/api";
 
-function Code() {
-  const data = getQuestions();
+function Code(data: any) {
+//  const [data, setData] = useState<any>();
 
-  // const handleResultClick = () => {
-  //   // Navigate to the "Result" page and pass the length of Questions as a state parameter
-  //   navigate("/Result", { state: { data } });
-  // };
-  console.log("data-code", data?.Questions);
+// useEffect(() => {
+//   async function fetchData() {
+//     try {
+//       const fetchResult = await getQuestions(login);
+//       console.log("fetch", fetchResult);
+//       setData(fetchResult);
+//     } catch (error) {
+//       console.error("Error fetching data:", error);
+//       // Handle the error as needed
+//     }
+//   }
+
+//   fetchData();
+// }, [login]);
+  console.log("data-code", data);
 
   return (
     <>
@@ -28,7 +37,7 @@ function Code() {
         <div>
           <form>
             <div>
-              {data?.Questions.map((item: any) => (
+              {data?.data.questions.map((item: any) => (
                 <div>
                   {item.type === "WRcode" ? (
                     <CodeEditor info={item.answers} />

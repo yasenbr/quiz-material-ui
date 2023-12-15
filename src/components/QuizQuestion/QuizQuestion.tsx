@@ -1,9 +1,13 @@
 import QuizAnswer from "./QuizAnswer";
 import { Container, Typography } from "@mui/material";
+
 function QuizQuestion(data: any) {
-  const info = data?.data.Questions;
-  console.log("info", info);
+  const info = data?.data?.questions;
+ 
   
+
+  if (!info) return <></>;
+
   return (
     <div>
       {info?.map((item: any, index: number) => (
@@ -16,8 +20,8 @@ function QuizQuestion(data: any) {
                 </Typography>
               </div>
               <div>
-                <Typography variant="h6" gutterBottom marginLeft={5} >
-                  <QuizAnswer answers={item.answers} type={item.type}/>
+                <Typography variant="h6" gutterBottom marginLeft={5}>
+                  <QuizAnswer answers={item.answers} type={item.type} number={item.number} />
                 </Typography>
               </div>
             </Container>
