@@ -172,6 +172,34 @@ app.get("/api/question/", (req, res) => {
   res.json(data);
 });
 
+app.get("/api/finalizedInterview/:id", (req, res) => {
+  try {
+    log("Received GET request for finalized item with ID:", req.params.id);
+    const itemId = req.params.id;
+    // const data = require("./public/question.json");
+    const filePath = "./public/finalizedInterview.json";
+    const fileContent = fs.readFileSync(filePath, "utf8");
+    existingData = JSON.parse(fileContent);
+    //  res.json(existingData);
+    log("Data:", existingData);
+
+    // Find the item with the specified ID
+    const item = existingData.find((d) => d.id === itemId);
+
+    // Check if the item exists
+    if (!item) {
+      return res.status(404).json({ error: "Item not found" });
+    }
+
+    // Send the item as JSON response
+    console.log("Item:", JSON.stringify(item));
+    res.json(item);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
+
 app.get("/api/question/:id", (req, res) => {
   try {
     log("Received GET request for item with ID:", req.params.id);
@@ -239,6 +267,36 @@ app.post("/api/question/", (req, res) => {
   console.log("Received POST request with data:", newData);
 
   const filePath = "./public/question.json";
+
+  // Read existing data from the file
+  let existingData = [];
+  try {
+    const fileContent = fs.readFileSync(filePath, "utf8");
+    existingData = JSON.parse(fileContent);
+  } catch (error) {
+    console.error("Error reading existing data:", error);
+  }
+
+  // Append new data to the existing data
+  const updatedData = [...existingData, newData];
+  console.log("Updated data:", updatedData);
+
+  // Write the updated data back to the file
+  fs.writeFileSync(filePath, JSON.stringify(updatedData, null, 2));
+
+  // Notify connected clients about the update
+  notifyClients(newData);
+
+  // Send a response back to the client
+  res.json({ message: "Data received successfully!" });
+});
+
+// New endpoint to handle POST requests  for finalized interviews
+app.post("/api/finalizedInterview/", (req, res) => {
+  const newData = req.body;
+  console.log("Received POST request with data:", newData);
+
+  const filePath = "./public/finalizedInterview.json";
 
   // Read existing data from the file
   let existingData = [];

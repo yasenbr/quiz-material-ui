@@ -113,7 +113,7 @@ function App({ themeColor, mouseTrack }: Track, props: Props) {
                 <Routes>
                   <Route path="/" element={<Quiz data={data} />} />
                   <Route path="/code" element={<Code data={data} />} />
-                  <Route path="/sandbox" element={<SandBox />} />
+                  <Route path="/sandbox" element={<SandBox data={data}/>} />
                   <Route path="/result" element={<Result />} />
                 </Routes>
                 <Footer />

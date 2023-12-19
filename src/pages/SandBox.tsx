@@ -1,11 +1,20 @@
 import { Box, Button, Dialog, Grid } from "@mui/material";
-import { useEffect, useRef, useReducer } from "react";
+import { useEffect, useRef, useReducer, useState } from "react";
 import ViewInArSharpIcon from "@mui/icons-material/ViewInArSharp";
 import SandBoxEditor from "../components/SandBox/SandBoxEditor";
 import Modal from "../components/SandBox/Modal";
 import "./SandBox.css";
+interface Props {
+  data: any;
+}
 
-function SandBox() {
+function SandBox({ data }: Props) {
+  const [initialHtml, setInitialHtml] = useState("");
+  const [initialCss, setInitialCss] = useState("");
+  const [initialJs, setInitialJs] = useState("");
+
+
+
   const [event, updateEvent] = useReducer(
     (prev: any, next: any) => {
       const newEvent = { ...prev, ...next };
@@ -13,9 +22,9 @@ function SandBox() {
       return newEvent;
     },
     {
-      html: "",
-      css: "",
-      js: "",
+      html: initialHtml,
+      css: initialCss,
+      js: initialJs,
       srcInfo: "",
       open: false,
       metaCdnLines: [""],
@@ -57,13 +66,24 @@ function SandBox() {
   };
 
   useEffect(() => {
+     data?.questions.map((question: any) => {
+         if (question.type === "SandBox") {
+           question.answers.map((answer: any) => {
+            //  console.log("answer", answer);
+             setInitialHtml(answer.html);
+             setInitialCss(answer.css);
+             setInitialJs(answer.js);
+             return answer;
+           });
+         }
+       });
     updateIframe();
   }, [
     event.cssCdnLines,
-    event.html,
-    event.css,
+    event.html= initialHtml,
+    event.css= initialCss,
     event.jsCdnLines,
-    event.js,
+    event.js = initialJs,
     iframeRef,
     event.metaCdnLines,
   ]);
