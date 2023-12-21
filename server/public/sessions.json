@@ -15,5 +15,17 @@
   {
     "id": "TestSession",
     "hasQuestions": true
+  },
+  {
+    "id": "Copy-session-1125",
+    "hasQuestions": true
+  },
+  {
+    "id": "double-copy-1125",
+    "hasQuestions": true
+  },
+  {
+    "id": "B1253-6",
+    "hasQuestions": false
   }
 ]

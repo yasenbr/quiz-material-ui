@@ -3,6 +3,11 @@ import { useEffect, useRef, useReducer, useState } from "react";
 import ViewInArSharpIcon from "@mui/icons-material/ViewInArSharp";
 import SandBoxEditor from "../components/SandBox/SandBoxEditor";
 import Modal from "../components/SandBox/Modal";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import "./SandBox.css";
 interface Props {
   data: any;
@@ -12,6 +17,7 @@ function SandBox({ data }: Props) {
   const [initialHtml, setInitialHtml] = useState("");
   const [initialCss, setInitialCss] = useState("");
   const [initialJs, setInitialJs] = useState("");
+  const [question, setQuestion] = useState("");
 
 
 
@@ -68,6 +74,7 @@ function SandBox({ data }: Props) {
   useEffect(() => {
      data?.questions.map((question: any) => {
          if (question.type === "SandBox") {
+          setQuestion(question.question);
            question.answers.map((answer: any) => {
             //  console.log("answer", answer);
              setInitialHtml(answer.html);
@@ -238,7 +245,25 @@ function SandBox({ data }: Props) {
               </Dialog>
             </Grid>
           </Grid>
-
+          <Grid container sx={{ marginX: "10px" }}>
+            <Grid item xs={12}>
+              <Box>
+                <Accordion sx={{ backgroundColor: "#d3d3d3" }}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header">
+                    <Typography>Assignment</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>
+                      {question}
+                    </Typography>
+                  </AccordionDetails>
+                </Accordion>
+              </Box>
+            </Grid>
+          </Grid>
           <Grid container sx={{ height: "auto" }}>
             <Grid item md={4} sm={12} xs={12}>
               <SandBoxEditor
