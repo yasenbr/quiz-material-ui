@@ -248,7 +248,7 @@ function SandBox({ data }: Props) {
           <Grid container sx={{ marginX: "10px" }}>
             <Grid item xs={12}>
               <Box>
-                <Accordion sx={{ backgroundColor: "#d3d3d3" }}>
+                <Accordion sx={{boxShadow: 3}}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="panel1a-content"
