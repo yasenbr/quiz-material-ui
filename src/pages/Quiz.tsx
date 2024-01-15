@@ -3,8 +3,7 @@ import QuizQuestion from "../components/QuizQuestion/QuizQuestion";
 import { Box, Container } from "@mui/material";
 import Button from "@mui/material/Button";
 import "./Quiz.css";
-import { initialState } from "../redux/scoreReducer";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useAuth } from "../auth/AuthContext";
 
@@ -16,14 +15,16 @@ function Quiz({ data }: auth) {
   const { user } = useAuth();
   const [localAnswersArray, setLocalAnswersArray] = useState<any[]>([]);
   const eventState = useSelector((state: { event: any }) => state.event);
+  const score = useSelector((state: { score: number }) => state.score);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const serverUrl = "http://localhost:5000";
-  dispatch(initialState(0));
+
+  console.log("score", score);
 
   console.log("user", user);
 
   console.log("eventState", eventState);
+  
 
   useEffect(() => {
     if (eventState.localAnswers.length !== 0) {
@@ -39,14 +40,13 @@ function Quiz({ data }: auth) {
 
   const handleResultClick = () => {
     const jsonData = JSON.stringify({ localAnswersArray });
-      console.log("jsonData", jsonData);
+    console.log("jsonData", jsonData);
     fetch(serverUrl + "/api/question/" + user, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: jsonData,
-      
     })
       .then(
         (

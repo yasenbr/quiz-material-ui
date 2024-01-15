@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./input.css";
 import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import scoreReducer from "../src/redux/scoreReducer";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { useTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
@@ -27,11 +25,7 @@ interface Props {
   children: React.ReactElement;
 }
 
-// const store = configureStore({
-//   reducer: {
-//     score: scoreReducer,
-//   },
-// });
+
 
 type Track = {
   themeColor: any;
@@ -106,16 +100,17 @@ function App({ themeColor, mouseTrack }: Track, props: Props) {
             {!isLoggedIn ? (
               <Routes>
                 <Route path="/" element={<Login />} />
-                {/* <Route path="*" element={<Navigate to="/login" />} /> */}
               </Routes>
             ) : (
-              <div style={{ marginTop: "80px" }}>
-                <Routes>
-                  <Route path="/" element={<Quiz data={data} />} />
-                  <Route path="/code" element={<Code data={data} />} />
-                  <Route path="/sandbox" element={<SandBox data={data}/>} />
-                  <Route path="/result" element={<Result />} />
-                </Routes>
+              <div>
+                <div style={{ marginTop: "80px" }}>
+                  <Routes>
+                    <Route path="/" element={<Quiz data={data} />} />
+                    <Route path="/code" element={<Code data={data} />} />
+                    <Route path="/sandbox" element={<SandBox data={data} />} />
+                    <Route path="/result" element={<Result />} />
+                  </Routes>
+                </div>
                 <Footer />
               </div>
             )}

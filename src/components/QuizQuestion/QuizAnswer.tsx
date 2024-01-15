@@ -89,20 +89,20 @@ export default function QuizAnswer({ answers, type, number }: QuizAnswerProps) {
     // invoke dispatch to update score
     if (isCorrect) {
       if (event.localAnswers[answerIndex].isSelected) {
-        // console.log("returning");
+        console.log("returning");
         return;
       } else if (!event.localAnswers[answerIndex].isSelected) {
-        // console.log("incrementScore");
+        console.log("incrementScore");
         dispatch(incrementScore(1));
       } else {
-        // console.log("decrementScore");
+        console.log("decrementScore");
         dispatch(decrementScore(1));
       }
       updateEvent({
         selectedTrueAnswer: !event.localAnswers[answerIndex].isSelected,
       });
     } else if (!isCorrect && event.selectedTrueAnswer) {
-      // console.log("decrementScore-2");
+      console.log("decrementScore-2");
       dispatch(decrementScore(1));
       updateEvent({ selectedTrueAnswer: false });
     }

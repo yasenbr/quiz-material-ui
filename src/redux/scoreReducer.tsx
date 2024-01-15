@@ -11,11 +11,11 @@ const scoreSlice = createSlice({
     decrementScore: (state, action) => {
       return state - action.payload;
     },
-    initialState: (state, action) => {
+    setScore: (state, action) => {
       return state = action.payload;
     },
   },
 });
 
-export const { incrementScore, decrementScore,initialState } = scoreSlice.actions;
+export const { incrementScore, decrementScore,setScore } = scoreSlice.actions;
 export default scoreSlice.reducer;

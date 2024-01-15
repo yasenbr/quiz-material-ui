@@ -5,27 +5,21 @@
     "finalized": true
   },
   {
-    "id": "222",
-    "hasQuestions": true
-  },
-  {
-    "id": "1125",
-    "hasQuestions": true
-  },
-  {
     "id": "TestSession",
-    "hasQuestions": true
-  },
-  {
-    "id": "Copy-session-1125",
-    "hasQuestions": true
-  },
-  {
-    "id": "double-copy-1125",
-    "hasQuestions": true
+    "hasQuestions": true,
+    "finalized": true
   },
   {
     "id": "B1253-6",
     "hasQuestions": false
+  },
+  {
+    "id": "25",
+    "hasQuestions": false
+  },
+  {
+    "id": "Copy-new-code",
+    "hasQuestions": true,
+    "copySessionData": true
   }
 ]

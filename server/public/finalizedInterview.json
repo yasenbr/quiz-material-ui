@@ -26,7 +26,7 @@
             "isSelected": false
           }
         ],
-        "note": "hrthetryhjertythetryhetryhetyh"
+        "note": "gasdgasdgassfdgasdgf"
       },
       {
         "type": "Quiz",
@@ -52,7 +52,7 @@
             "isSelected": false
           }
         ],
-        "note": ""
+        "note": "agdsfgasdfgadsfgafg"
       },
       {
         "type": "Code",
@@ -78,7 +78,7 @@
             "isSelected": false
           }
         ],
-        "note": ""
+        "note": "gggadsfga"
       },
       {
         "type": "WRcode",
@@ -88,6 +88,96 @@
           {
             "title": "What is Lorem Ipsum?",
             "description": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+          }
+        ],
+        "note": "bcxvbxcvbnxcv"
+      }
+    ]
+  },
+  {
+    "id": "TestSession",
+    "questions": [
+      {
+        "type": "Quiz",
+        "questions": [
+          {
+            "subtype": "quiz",
+            "number": 1,
+            "question": "vapros1",
+            "answers": [
+              {
+                "text": "answer1",
+                "isCorrect": true,
+                "number": 1,
+                "isSelected": true
+              },
+              {
+                "text": "answer2",
+                "isCorrect": false,
+                "number": 2,
+                "isSelected": false
+              },
+              {
+                "text": "answer3",
+                "isCorrect": false,
+                "number": 3,
+                "isSelected": false
+              }
+            ],
+            "note": "adsfasdfasdf"
+          },
+          {
+            "subtype": "code",
+            "number": 2,
+            "question": "vapros2",
+            "answers": [
+              {
+                "code": "console.log(\"hello\")",
+                "isCorrect": false,
+                "number": 1,
+                "isSelected": false
+              },
+              {
+                "code": "console.log(\"hello\"):",
+                "isCorrect": false,
+                "number": 2,
+                "isSelected": true
+              },
+              {
+                "code": "console.log(\"hello\");",
+                "isCorrect": false,
+                "number": 3,
+                "isSelected": false
+              }
+            ],
+            "note": ""
+          }
+        ]
+      },
+      {
+        "type": "WRcode",
+        "number": 3,
+        "question": "",
+        "answers": [
+          {
+            "title": "vapros3",
+            "description": "test est test",
+            "number": 1
+          }
+        ],
+        "note": "asdfasdfasd"
+      },
+      {
+        "type": "SandBox",
+        "number": 4,
+        "question": "write code ",
+        "answers": [
+          {
+            "html": "<section>\n\t<svg xmlns=\"http://www.w3.org/2000/svg\" style=\"width: 0;height: 0;\" version=\"1.1\">\n\t\t<defs>\n\t\t\t<filter id=\"blood-drop\">\n\t\t\t\t<feGaussianBlur in=\"SourceGraphic\" stdDeviation=\"4\" result=\"blur\" />\n\t\t\t\t<feColorMatrix in=\"blur\" mode=\"matrix\" values=\"1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7\" result=\"blood-drop\" />\n\t\t\t\t<feBlend in=\"SourceGraphic\" in2=\"blood-drop\" />\n\t\t\t</filter>\n\t\t</defs>\n\t</svg>\n\t<svg style=\"width: 0;height: 0;\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n\t\t<filter id=\"blur\">\n\t\t\t<fegaussianblur stddeviation=\"10\"></fegaussianblur>\n\t\t</filter>\n\t</svg>\n\n\t<main>\n\t\t<header id=\"header\">\n\t\t\t<div class=\"nav-section\"><a id=\"mag\" href=\"#\" class=\"nav\"><i class=\"fa-solid fa-magnifying-glass\"></i></a> </div>\n\t\t\t<nav class=\"nav-bar\">\n\t\t\t\t<a href=\"#about\" class=\"nav\">About</a>\n\t\t\t\t<a href=\"#\" class=\"nav\" id=\"home\"><i class=\"fa-solid fa-house-chimney\"></i></a>\n\t\t\t\t<a onclick=\"topFunction()\" id=\"topBtn\" class=\"nav\" title=\"Go to top\"><i class=\"fa-solid fa-arrow-up fa-bounce\"></i></a>\n\t\t\t\t<a href=\"#shop\" class=\"nav\">Shop</a>\n\t\t\t</nav>\n\t\t\t<div class=\"nav-section\"> <a href=\"#\" class=\"nav\"><i class=\"fa-solid fa-gear fa-spin-pulse\"></i><a>\n\n\t\t\t</div>\n\t\t</header>\n\t\t<section id=\"about\">\n\t\t\t<div class=\"hero\">\n\t\t\t\t<h1 id=\"about-header\">About</h1>\n\n\t\t\t</div>\n\n\t\t\t<div>\n\t\t\t\t<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc congue tellus feugiat, luctus metus sed, tincidunt dui. Aenean id sapien dui. Duis id tortor in risus eleifend euismod. Sed ut erat mauris. Integer pretium, velit vitae egestas cursus, risus risus ornare nunc, eu feugiat tellus elit vel nunc. Fusce turpis erat, sollicitudin in fringilla sit amet, mattis eu ipsum. In euismod leo a neque varius pulvinar. Nulla ut tristique nisi. Nam eu enim sit amet sapien iaculis aliquet. Nunc pharetra lacinia nunc non dignissim. Suspendisse quis hendrerit mauris. Fusce sodales ac tellus eget finibus. Phasellus semper sollicitudin lectus, nec facilisis mauris congue in. Suspendisse ut augue massa. Sed nec velit ac ante euismod porta ut eu orci. Nulla facilisi.</p>\n\n\t\t\t\t<p>Integer aliquet eget ipsum vitae scelerisque. <b>Phasellus sodales euismod convallis.</b> Mauris quis ipsum eget risus dignissim dapibus at vitae odio. Nulla facilisi. Fusce auctor tortor pulvinar, vestibulum eros a, cursus ante. Sed porta tristique est ac iaculis. Quisque posuere purus in ultrices semper.</p>\n\t\t\t\t<figure><img width=\"200px\" height=\"200px\" src=\"https://images.unsplash.com/photo-1494486205133-727224a9f727?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTQ1MjA3OTV8&ixlib=rb-4.0.3&q=85\" />\n\t\t\t\t\t<figcaption>Purple Makes me Cry. Long ago, purple was only for the rich.</figcaption>\n\t\t\t\t</figure>\n\t\t\t\t<p>\n\t\t\t\t\tSed id interdum arcu. Fusce nec est commodo, congue ipsum in, tempor lorem. Ut sapien nunc, imperdiet eu porta in, vulputate at est. Mauris pharetra, ex id vulputate tincidunt, odio dui pulvinar lacus, at fermentum sem diam a enim. Nunc dapibus metus vitae purus facilisis, eget malesuada mi auctor. Etiam elit sapien, accumsan id dictum at, facilisis ut justo. Aenean tellus sapien, fringilla in semper sed, ullamcorper et metus. Nulla egestas in sapien sed auctor. Donec dapibus augue a venenatis aliquam. Quisque condimentum volutpat turpis, non consectetur lacus mattis quis. Mauris sit amet augue ut erat dapibus semper. Quisque non velit ex. Fusce ultrices enim arcu, luctus feugiat dui pulvinar ac.</p>\n\n\t\t\t\t<p>Proin eu mi a leo vestibulum iaculis eleifend vel ipsum. Sed pellentesque ullamcorper eros at faucibus. Morbi tempor rutrum lorem, in ornare enim. <s>Proin ut egestas odio.</s> Quisque et ligula consequat, tempor risus eget, iaculis felis. Mauris vitae cursus massa. Vestibulum lacus arcu, interdum in lacinia et, euismod eu risus. Nunc sit amet lorem vehicula lectus vulputate tempor. Pellentesque pretium nisl vitae congue tristique. Curabitur elit nibh, imperdiet ac finibus non, condimentum nec eros.</p>\n\n\t\t\t\t<p>Donec eu lorem eros. Phasellus elementum a ipsum sed eleifend. Maecenas tempor pretium ante a dictum. Fusce euismod lacus in metus auctor, vitae ullamcorper erat aliquet. Phasellus at felis in ante posuere consequat a a lorem. Sed convallis tempor volutpat. In suscipit nibh id dolor dapibus consectetur. <i>In hac habitasse platea dictumst.</i> Quisque ullamcorper mi diam, ut cursus ex rhoncus et. Morbi ipsum enim, viverra nec justo eu, vestibulum tincidunt orci. Praesent ullamcorper diam nec sodales dignissim. Integer id leo sit amet diam accumsan porta. Aenean vel tincidunt ante. Suspendisse faucibus viverra lectus, in gravida ante tristique nec.</p>\n\n\t\t\t\t<q>\n\t\t\t\t\tFlower of this purple dye,<wbr /> Hit with Cupid's archery,<wbr /> Sink in the apple of his eye.\n\t\t\t\t</q>\n\n\t\t\t\t<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc congue tellus feugiat, luctus metus sed, tincidunt dui. Aenean id sapien dui. Duis id tortor in risus eleifend euismod. Sed ut erat mauris. Integer pretium, velit vitae egestas cursus, risus risus ornare nunc, eu feugiat tellus elit vel nunc. Fusce turpis erat, sollicitudin in fringilla sit amet, mattis eu ipsum. In euismod leo a neque varius pulvinar. Nulla ut tristique nisi. Nam eu enim sit amet sapien iaculis aliquet. Nunc pharetra lacinia nunc non dignissim. Suspendisse quis hendrerit mauris. Fusce sodales ac tellus eget finibus. Phasellus semper sollicitudin lectus, nec facilisis mauris congue in. Suspendisse ut augue massa. Sed nec velit ac ante euismod porta ut eu orci. Nulla facilisi.</p>\n\n\t\t\t\t<p>Integer aliquet eget ipsum vitae scelerisque. <b>Phasellus sodales euismod convallis.</b> Mauris quis ipsum eget risus dignissim dapibus at vitae odio. Nulla facilisi. Fusce auctor tortor pulvinar, vestibulum eros a, cursus ante. Sed porta tristique est ac iaculis. Quisque posuere purus in ultrices semper.</p>\n\n\t\t\t\t<p>\n\t\t\t\t\tSed id interdum arcu. Fusce nec est commodo, congue ipsum in, tempor lorem. Ut sapien nunc, imperdiet eu porta in, vulputate at est. Mauris pharetra, ex id vulputate tincidunt, odio dui pulvinar lacus, at fermentum sem diam a enim. Nunc dapibus metus vitae purus facilisis, eget malesuada mi auctor.</p>\n\n\t\t\t\t<figure><img width=\"200px\" height=\"200px\" src=\"https://images.unsplash.com/photo-1494444770832-e2ec7310d339?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE2OTQ1MjA3OTV8&ixlib=rb-4.0.3&q=85\" />\n\t\t\t\t\t<figcaption>Happiness held is the seed; Happiness shared is the flower.</figcaption>\n\t\t\t\t</figure>\n\n\t\t\t\t<p>\n\n\t\t\t\t\tEtiam elit sapien, accumsan id dictum at, facilisis ut justo. Aenean tellus sapien, fringilla in semper sed, ullamcorper et metus. Nulla egestas in sapien sed auctor. Donec dapibus augue a venenatis aliquam. Quisque condimentum volutpat turpis, non consectetur lacus mattis quis. Mauris sit amet augue ut erat dapibus semper. Quisque non velit ex. Fusce ultrices enim arcu, luctus feugiat dui pulvinar ac.</p>\n\n\t\t\t\t<p>Proin eu mi a leo vestibulum iaculis eleifend vel ipsum. Sed pellentesque ullamcorper eros at faucibus. Morbi tempor rutrum lorem, in ornare enim. <s>Proin ut egestas odio.</s> Quisque et ligula consequat, tempor risus eget, iaculis felis. Mauris vitae cursus massa. Vestibulum lacus arcu, interdum in lacinia et, euismod eu risus. Nunc sit amet lorem vehicula lectus vulputate tempor. Pellentesque pretium nisl vitae congue tristique. Curabitur elit nibh, imperdiet ac finibus non, condimentum nec eros.</p>\n\n\t\t\t\t<p>Donec eu lorem eros. Phasellus elementum a ipsum sed eleifend. Maecenas tempor pretium ante a dictum. Fusce euismod lacus in metus auctor, vitae ullamcorper erat aliquet. Phasellus at felis in ante posuere consequat a a lorem. Sed convallis tempor volutpat. In suscipit nibh id dolor dapibus consectetur. <i>In hac habitasse platea dictumst.</i> Quisque ullamcorper mi diam, ut cursus ex rhoncus et. Morbi ipsum enim, viverra nec justo eu, vestibulum tincidunt orci. Praesent ullamcorper diam nec sodales dignissim. Integer id leo sit amet diam accumsan porta. Aenean vel tincidunt ante. Suspendisse faucibus viverra lectus, in gravida ante tristique nec.</p>\n\n\t\t\t</div>\n\t\t</section>\n\t</main>",
+            "css": "body {\n\tmargin: 0;\n\tpadding: 0;\n\tmin-height: 100vh;\n\tbackground-color: #dfdbe5;\n\tfont-family: \"Inter\", sans-serif;\n\tbackground-image: url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%239C92AC' fill-opacity='0.25'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3Cpath d='M6 5V0H5v5H0v1h5v94h1V6h94V5H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E\");\n}\n\nheader {\n\tposition: sticky;\n\ttop: 40px;\n\tmargin: auto;\n\tdisplay: flex;\n\tjustify-content: center;\n\talign-items: center;\n\n\tz-index: 9;\n\tborder-radius: 50px;\n\tbackdrop-filter: blur(25px);\n\tbackground-color: rgb(250 250 250 / 0.35);\n\tborder: 1px solid #ffffff;\n\tbox-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,\n\t\trgba(0, 0, 0, 0.3) 0px 1px 3px -1px;\n\n\t@media (max-width: 768px) {\n\t\twidth: 70vw;\n\t\tfont-size: 0.8rem;\n\t}\n\n\t@media (min-width: 768px) {\n\t\twidth: 50vw;\n\t}\n}\n\nmain {\n\tmargin-bottom: 15vh;\n}\n\nsection {\n\tmin-height: 100vh;\n}\n\nol {\n\tdisplay: flex;\n\tjustify-content: space-around;\n\tflex-wrap: wrap;\n\tpadding: 1rem;\n\tlist-style: none;\n}\n\n.nav-bar {\n\twidth: 45vw;\n\tborder-radius: 35px;\n\tbackground-color: rebeccapurple;\n\tdisplay: flex;\n\tflex-direction: row;\n\tflex-wrap: wrap;\n\tjustify-content: space-around;\n\tbox-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,\n\t\trgba(0, 0, 0, 0.3) 0px 1px 3px -1px;\n\tbackground: rgb(52, 162, 255);\n\tbackground: radial-gradient(\n\t\tcircle,\n\t\trgba(218, 0, 255, 1) 0%,\n\t\trgba(102, 51, 153, 1) 100%\n\t);\n}\n\n.nav {\n\ttext-decoration: none;\n\tflex: 1;\n\tpadding: 15px 20px;\n\tcolor: #fff;\n\ttext-align: center;\n\tfont-weight: 500;\n\n\t&:hover {\n\t\tbackground-color: white;\n\t\tcolor: rebeccapurple;\n\t\tborder-radius: 50px;\n\t\tscale: 1.2;\n\t}\n}\n\n.nav-section {\n\t// background-color: rgb(255 255 255 / 0.05);\n\n\tpadding: 20px 0;\n\tz-index: -1;\n}\n\n.nav-section .nav {\n\tcolor: rebeccapurple;\n\n\t&:hover {\n\t\tbackground-color: transparent;\n\t\tcolor: #fff;\n\t}\n}\n\n.hero {\n\tdisplay: flex;\n\talign-items: center;\n\tjustify-content: center;\n\tmargin: auto;\n}\n\nh1 {\n\tfont-size: 5rem;\n\tfont-weight: 200;\n\tletter-spacing: -0.05em;\n\tline-height: 1;\n\tcolor: rebeccapurple;\n\ttext-align: center;\n}\n\np,\nq {\n\tmax-width: 45rem;\n\tmargin: 1rem auto;\n\tpadding: 0 1rem;\n\tline-height: 1.6;\n\ttext-align: justify;\n\tshape-outside: circle(50%);\n}\n\nq {\n\tdisplay: block;\n\tfont-size: 2rem;\n\tfont-style: italic;\n\ttext-align: center;\n\tcolor: purple;\n\ttext-indent: 2rem hanging each-line;\n}\n\nfigure {\n\twidth: 200px;\n\tfloat: left;\n\tmargin: 0.5rem 150px;\n\n\t&:nth-of-type(2) {\n\t\tfloat: right;\n\t}\n\n\t& img {\n\t\tborder-radius: 50%;\n\t}\n\n\t& figcaption {\n\t\tcolor: rebeccapurple;\n\t\tfont-style: italic;\n\t\ttext-align: center;\n\t}\n}\n\n/* ===== Scrollbar CSS ===== */\n/* Firefox */\n* {\n\tscrollbar-width: thin;\n\tscrollbar-color: #8f54a0 #ffffff;\n}\n\n/* Chrome, Edge, and Safari */\n*::-webkit-scrollbar {\n\twidth: 5px;\n}\n\n*::-webkit-scrollbar-track {\n\tbackground: #dfdbe5;\n}\n\n*::-webkit-scrollbar-thumb {\n\tbackground-color: rebeccapurple;\n\tborder-radius: 5px;\n}\n\n#topBtn {\n\tdisplay: none;\n\n\t&:hover {\n\t\tbackground-color: white;\n\t\tcolor: rebeccapurple;\n\t\tscale: 1.8;\n\t\tcursor: pointer;\n\t}\n}\n",
+            "js": "let button = document.getElementById(\"topBtn\");\nlet home = document.getElementById(\"home\");\nlet nav = document.getElementById(\"header\");\n\nconst scrollDetect = () => {\n\tvar lastScroll = 0;\n\n\twindow.onscroll = () => {\n\t\tlet currentScroll =\n\t\t\tdocument.documentElement.scrollTop || document.body.scrollTop;\n\n\t\tif (currentScroll > 0 && lastScroll <= currentScroll) {\n\t\t\tlastScroll = currentScroll;\n\t\t\t// console.log(\"bottom\");\n\t\t\tbutton.style.display = \"none\";\n\t\t\thome.style.display = \"block\";\n\t\t} else {\n\t\t\tlastScroll = currentScroll;\n\t\t\t// console.log(\"top\");\n\t\t\tif (\n\t\t\t\tdocument.body.scrollTop > 500 ||\n\t\t\t\tdocument.documentElement.scrollTop > 500\n\t\t\t) {\n\t\t\t\tbutton.style.display = \"block\";\n\t\t\t\thome.style.display = \"none\";\n\t\t\t} else {\n\t\t\t\tbutton.style.display = \"none\";\n\t\t\t\thome.style.display = \"block\";\n\t\t\t}\n\t\t}\n\t};\n};\n\nconst topFunction = () => {\n\tdocument.body.scrollTop = 0; // For Safari\n\tdocument.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera\n};\n\n// const headerSet = () => {\n// \tif (\n// \t\tdocument.body.scrollTop > 1000 ||\n// \t\tdocument.documentElement.scrollTop > 1000\n// \t)\n// \t\tposition: sticky;\n// \t\tnav.style.bottom = \"80vh\";\n// \t} else {\n// \t\tnav.style.bottom = \"10vh\";\n// \t}\n// };\n\nscrollDetect();\n",
+            "number": 1,
+            "isSelected": true
           }
         ],
         "note": ""

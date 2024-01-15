@@ -198,7 +198,7 @@ function SandBox({ data }: Props) {
   };
 
   return (
-    <div style={{ height: "100vh" }}>
+    <div style={{ height: "auto" }}>
       <div className="top-panel" id="back-to-top-anchor">
         <Grid
           container

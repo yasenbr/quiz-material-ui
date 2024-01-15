@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { initialState } from "../redux/scoreReducer";
+import { setScore } from "../redux/scoreReducer";
 import { Box, Button, Container, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
 import "./Result.css";
@@ -9,13 +9,15 @@ function Result() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const score = useSelector((state: { score: number }) => state.score); // Get the score from Redux
-  console.log("score", score);
+ 
 
   const location = useLocation();
   const data = location.state?.data;
 
+   console.log("score", score);
+
   function ClearCache() {
-    dispatch(initialState(0));
+    dispatch(setScore(0));
     navigate("/Code");
   }
 
